@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://yk6tr8s6di5d"]
+
+[ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
+[ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
+size = Vector2(786, 60)
+
+[node name="Main" type="Node"]
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_8gkfy")
+offset = Vector2(384, 256)
+
+[node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
+position = Vector2(71, 429)
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(383, 487)
+shape = SubResource("RectangleShape2D_v6bwf")
