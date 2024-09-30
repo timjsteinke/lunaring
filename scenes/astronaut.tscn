@@ -1,24 +1,45 @@
-[gd_scene load_steps=7 format=3 uid="uid://drxu5atyc48fh"]
+[gd_scene load_steps=9 format=3 uid="uid://drxu5atyc48fh"]
 
 [ext_resource type="Script" path="res://scenes/astronaut.gd" id="1_65tvb"]
 [ext_resource type="Texture2D" uid="uid://7425xc3nfclp" path="res://assets/astronaut-booster-1.png" id="1_r35v2"]
 [ext_resource type="Texture2D" uid="uid://bgifshr0gagwr" path="res://assets/astronaut-booster-2.png" id="2_iitx5"]
 [ext_resource type="Texture2D" uid="uid://b8rmb4a1wtis8" path="res://assets/astronaut-booster-3.png" id="3_uutk5"]
+[ext_resource type="Texture2D" uid="uid://c80vys54t0xc1" path="res://assets/astronaut-death.png" id="5_hiku6"]
+[ext_resource type="Texture2D" uid="uid://cwyiup11rb3nl" path="res://assets/astronaut-idle.png" id="5_y8cpy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wwv17"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_r35v2")
+"texture": ExtResource("3_uutk5")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_iitx5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_uutk5")
+"texture": ExtResource("1_r35v2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_iitx5")
 }],
 "loop": true,
 "name": &"boosting",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_hiku6")
+}],
+"loop": true,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_y8cpy")
+}],
+"loop": true,
+"name": &"idle",
 "speed": 5.0
 }]
 
@@ -31,8 +52,7 @@ script = ExtResource("1_65tvb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wwv17")
-animation = &"boosting"
-frame_progress = 0.56463
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)

@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=6 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
+[ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
+[ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
-size = Vector2(786, 60)
+size = Vector2(768, 47)
 
 [node name="Main" type="Node"]
 
@@ -12,11 +14,42 @@ size = Vector2(786, 60)
 texture = ExtResource("1_8gkfy")
 offset = Vector2(384, 256)
 
-[node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
-position = Vector2(71, 429)
+[node name="Platform" parent="." instance=ExtResource("3_de22q")]
+position = Vector2(60, 418)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(383, 487)
+position = Vector2(384, 488.5)
 shape = SubResource("RectangleShape2D_v6bwf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(190, 383)
+zoom = Vector2(2, 2)
+
+[node name="FuelUI" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+offset_left = 32.0
+offset_top = 463.0
+offset_right = 175.0
+offset_bottom = 486.0
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "FUEL: 100.0%"
+scroll_active = false
+
+[node name="VerticalSpeedUI" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+offset_left = 6.0
+offset_top = 482.0
+offset_right = 339.0
+offset_bottom = 513.0
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "V SPEED: 0 MPH"
+
+[node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
+position = Vector2(307, 444)
+
+[node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
+position = Vector2(72, 403)

@@ -22,14 +22,19 @@ window/size/viewport_height=512
 window/size/mode=2
 window/size/resizable=false
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
 
 [editor]
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[gui]
+
+theme/custom_font="res://assets/Pixeled.ttf"
+theme/default_font_antialiasing=0
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
