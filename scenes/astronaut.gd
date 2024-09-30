@@ -12,16 +12,20 @@ var alive
 var last_vertical_speed
 var second_to_last_vertical_speed
 
+func start(pos):
+	position = pos
+	alive = true
+
 func _ready():
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize fuel UI text node pointer
-	alive = true
+	alive = false
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
 	
 	
-func _physics_process(delta: float) -> void:
 	
+func _physics_process(delta: float) -> void:
 	
 	
 	if (alive):
@@ -29,7 +33,7 @@ func _physics_process(delta: float) -> void:
 		last_vertical_speed = velocity.y * -1 / 4
 		velocity.y += GRAVITY * delta # Add the gravity.
 	
-	print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
+	#print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
 		
 	if (second_to_last_vertical_speed <= -30):
 		#vertical_speed_ui.text = "V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH - !!!WARNING!!!"
@@ -96,3 +100,9 @@ func _physics_process(delta: float) -> void:
 	# useful other commands may need
 	# is_action_just_pressed (handles only first occurence of press of key)
 	# is_on_floor()	
+
+func _on_pink_crystal_body_entered(body):
+	#This function handles the player entering the pink crystal
+	if is_on_floor() && alive:
+		print ("Player has landed on the Pink Crystal")
+		

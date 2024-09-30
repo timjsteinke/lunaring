@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=8 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
@@ -8,7 +9,11 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
 size = Vector2(768, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lf80f"]
+size = Vector2(64, 3)
+
 [node name="Main" type="Node"]
+script = ExtResource("1_51ee7")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_8gkfy")
@@ -25,6 +30,10 @@ shape = SubResource("RectangleShape2D_v6bwf")
 
 [node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
 position = Vector2(307, 444)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PinkCrystal"]
+position = Vector2(0, 21.5)
+shape = SubResource("RectangleShape2D_lf80f")
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
 position = Vector2(72, 403)
@@ -60,7 +69,28 @@ theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "V SPEED: 0 MPH"
 
-[node name="PlayerArea" type="StaticBody2D" parent="."]
+[node name="StartButton" type="Button" parent="HUD"]
+custom_minimum_size = Vector2(80, 40)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.5
+offset_top = -412.0
+offset_right = 151.5
+offset_bottom = -358.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Lift off"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerArea"]
+[node name="BoundaryArea" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoundaryArea"]
 polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 512, 768, 512, 768, 0)
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(72, 403)
+
+[connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
+[connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
