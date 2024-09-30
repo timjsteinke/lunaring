@@ -23,12 +23,24 @@ position = Vector2(60, 418)
 position = Vector2(384, 488.5)
 shape = SubResource("RectangleShape2D_v6bwf")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(190, 383)
-zoom = Vector2(2, 2)
+[node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
+position = Vector2(307, 444)
 
-[node name="FuelUI" type="RichTextLabel" parent="."]
+[node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
+position = Vector2(72, 403)
+
+[node name="Camera2D" type="Camera2D" parent="Astronaut"]
+zoom = Vector2(3, 3)
+limit_left = 0
+limit_top = 0
+limit_right = 800
+limit_bottom = 600
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="FuelUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
+layout_direction = 1
 offset_left = 32.0
 offset_top = 463.0
 offset_right = 175.0
@@ -38,7 +50,7 @@ bbcode_enabled = true
 text = "FUEL: 100.0%"
 scroll_active = false
 
-[node name="VerticalSpeedUI" type="RichTextLabel" parent="."]
+[node name="VerticalSpeedUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 offset_left = 6.0
 offset_top = 482.0
@@ -48,8 +60,7 @@ theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "V SPEED: 0 MPH"
 
-[node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
-position = Vector2(307, 444)
+[node name="PlayerArea" type="StaticBody2D" parent="."]
 
-[node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
-position = Vector2(72, 403)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerArea"]
+polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 512, 768, 512, 768, 0)
