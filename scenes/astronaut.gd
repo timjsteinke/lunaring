@@ -15,6 +15,7 @@ var second_to_last_vertical_speed
 func start(pos):
 	position = pos
 	alive = true
+	fuel = 100
 
 func _ready():
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
@@ -22,8 +23,7 @@ func _ready():
 	alive = false
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
-	
-	
+
 	
 func _physics_process(delta: float) -> void:
 	
@@ -53,7 +53,7 @@ func _physics_process(delta: float) -> void:
 			
 	if (alive):
 		# Handle Thrusters
-		if Input.is_action_pressed("ui_accept"): 
+		if Input.is_action_pressed("Jetpack_and_Start"): 
 			if fuel > 0:
 				velocity.y = THRUST_VELOCITY
 				$AnimatedSprite2D.play("boosting")
@@ -67,7 +67,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("ui_left", "ui_right")
+		var direction := Input.get_axis("move_left", "move_right")
 		
 		
 		# Flip sprite based on current flip and key presses
