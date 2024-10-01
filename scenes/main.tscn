@@ -5,11 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
-<<<<<<< HEAD
 [ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
-=======
 [ext_resource type="Script" path="res://scenes/progress_bar.gd" id="6_3hpj6"]
->>>>>>> 529d023fe41ffb093386de9fd96cbe19a12fe76d
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
 size = Vector2(768, 47)

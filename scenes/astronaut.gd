@@ -12,6 +12,7 @@ const MAX_FUEL = 100
 
 signal fuelChanged
 
+var fuel_ui
 var vertical_speed_ui
 var astro_cam
 
