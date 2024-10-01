@@ -3,7 +3,7 @@ extends CharacterBody2D
 class_name Astronaut
 
 const GRAVITY : int = 100
-const SPEED = 50.0
+const SPEED = 1.0
 const THRUST_VELOCITY = -50.0
 const FUEL_COST = .25
 const MAX_FUEL = 100
@@ -123,7 +123,7 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			if direction:
 				#print("123")
-				velocity.x = direction * SPEED
+				velocity.x = direction * SPEED + velocity.x
 			#else:
 			#	velocity.x = move_toward(velocity.x, 0, SPEED)
 		else:

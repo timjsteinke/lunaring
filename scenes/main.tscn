@@ -83,6 +83,7 @@ bbcode_enabled = true
 text = "V SPEED: 0 MPH"
 
 [node name="StartButton" type="Button" parent="HUD"]
+visible = false
 custom_minimum_size = Vector2(80, 40)
 anchors_preset = 7
 anchor_left = 0.5
@@ -154,6 +155,7 @@ offset_left = 54.0
 offset_top = 421.0
 offset_right = 92.0
 offset_bottom = 443.0
+pivot_offset = Vector2(18, -20)
 theme_override_font_sizes/font_size = 5
 action_mode = 0
 keep_pressed_outside = true
@@ -164,8 +166,8 @@ script = ExtResource("5_2t4ex")
 
 [node name="LaunchLine" type="Line2D" parent="LaunchButton"]
 unique_name_in_owner = true
-position = Vector2(19, -5)
-points = PackedVector2Array(0, 0)
+position = Vector2(31, -22)
+points = PackedVector2Array(-13, 4)
 width = 3.0
 default_color = Color(0, 1, 1, 1)
 joint_mode = 2
