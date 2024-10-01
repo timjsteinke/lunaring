@@ -17,6 +17,11 @@ var camera_zoom
 
 var launching
 
+func start(pos):
+	position = pos
+	alive = true
+	fuel = 100
+
 func _ready():
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
@@ -33,6 +38,8 @@ func _physics_process(delta: float) -> void:
 		second_to_last_vertical_speed = last_vertical_speed
 		last_vertical_speed = velocity.y * -1 / 4
 		velocity.y += GRAVITY * delta # Add the gravity.
+	
+	#print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
 		
 		camera_zoom = (abs(position.y) / 452) * 3
 		if camera_zoom < 1:
@@ -62,7 +69,7 @@ func _physics_process(delta: float) -> void:
 			
 	if (alive):
 		# Handle Thrusters
-		if Input.is_action_pressed("ui_accept"): 
+		if Input.is_action_pressed("Jetpack_and_Start"): 
 			if fuel > 0:
 				velocity.y = THRUST_VELOCITY
 				$AnimatedSprite2D.play("boosting")
@@ -76,7 +83,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("ui_left", "ui_right")
+		var direction := Input.get_axis("move_left", "move_right")
 		
 		print ("Direction:" + str(direction))
 		
@@ -115,3 +122,9 @@ func _physics_process(delta: float) -> void:
 	# is_action_just_pressed (handles only first occurence of press of key)
 	# is_on_floor()	
 	# .position.x    ,    global_position.x
+
+func _on_pink_crystal_body_entered(body):
+	#This function handles the player entering the pink crystal
+	if is_on_floor() && alive:
+		print ("Player has landed on the Pink Crystal")
+		
