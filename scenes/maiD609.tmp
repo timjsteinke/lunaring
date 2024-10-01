@@ -5,11 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
-<<<<<<< HEAD
-[ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
-=======
 [ext_resource type="Script" path="res://scenes/progress_bar.gd" id="6_3hpj6"]
->>>>>>> 529d023fe41ffb093386de9fd96cbe19a12fe76d
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
 size = Vector2(768, 47)
@@ -50,11 +46,10 @@ position = Vector2(0, 21.5)
 shape = SubResource("RectangleShape2D_lf80f")
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
-unique_name_in_owner = true
 position = Vector2(72, 403)
+fuel = 100
 
-[node name="AstroCam" type="Camera2D" parent="Astronaut"]
-unique_name_in_owner = true
+[node name="Camera2D" type="Camera2D" parent="Astronaut"]
 zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
@@ -129,29 +124,6 @@ grow_vertical = 2
 text = "You died. Try not running into the surface so hard!"
 fit_content = true
 
-[node name="LaunchButton" type="Button" parent="."]
-offset_left = 54.0
-offset_top = 421.0
-offset_right = 92.0
-offset_bottom = 443.0
-theme_override_font_sizes/font_size = 5
-action_mode = 0
-keep_pressed_outside = true
-text = "LAUNCH"
-text_overrun_behavior = 1
-clip_text = true
-script = ExtResource("5_2t4ex")
-
-[node name="LaunchLine" type="Line2D" parent="LaunchButton"]
-unique_name_in_owner = true
-position = Vector2(19, -5)
-points = PackedVector2Array(0, 0)
-width = 3.0
-default_color = Color(0, 1, 1, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 layer = 2
 
@@ -185,4 +157,3 @@ position = Vector2(72, 403)
 
 [connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]

@@ -23,6 +23,10 @@ window/size/mode=2
 window/size/resizable=false
 window/stretch/mode="viewport"
 
+[dotnet]
+
+project/assembly_name="Lunaring"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
