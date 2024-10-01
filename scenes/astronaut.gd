@@ -9,6 +9,8 @@ const FUEL_COST = .25
 var fuel_ui
 var vertical_speed_ui
 var alive
+var dead_reason
+var reasons = ["Try not flying into the ground so fast!", "Didn't you see the space debris?"]
 var last_vertical_speed
 var second_to_last_vertical_speed
 
@@ -23,10 +25,10 @@ func _ready():
 	alive = false
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
-
+	dead_reason = 0
+	
 	
 func _physics_process(delta: float) -> void:
-	
 	
 	if (alive):
 		second_to_last_vertical_speed = last_vertical_speed
@@ -43,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		if (is_on_floor()):
 			print ("Is on Floor")
 			alive = false
+			died(0)
 			fuel = 0
 			velocity.y = 0
 			$AnimatedSprite2D.play("death")
@@ -100,6 +103,14 @@ func _physics_process(delta: float) -> void:
 	# useful other commands may need
 	# is_action_just_pressed (handles only first occurence of press of key)
 	# is_on_floor()	
+
+func died(reason):
+	#This function handles the player dieing
+	pass
+	#$HUD/DeadLabel.text = "You died. " + reasons[dead_reason]
+	#$DeadLabel.Show()
+	#$HUD/RetryButton.Show()
+	
 
 func _on_pink_crystal_body_entered(body):
 	#This function handles the player entering the pink crystal
