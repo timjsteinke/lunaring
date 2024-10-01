@@ -59,7 +59,7 @@ func _physics_process(delta: float) -> void:
 		#vertical_speed_ui.text = "V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH - !!!WARNING!!!"
 		vertical_speed_ui.bbcode_text = "[color=#ff0000]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
 		
-		vertical_speed_ui.pop()
+		#vertical_speed_ui.pop()
 		if (is_on_floor()):
 			print ("Is on Floor")
 			alive = false

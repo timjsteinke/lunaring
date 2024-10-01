@@ -87,29 +87,6 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Lift off"
 
-[node name="LaunchButton" type="Button" parent="."]
-offset_left = 54.0
-offset_top = 421.0
-offset_right = 92.0
-offset_bottom = 443.0
-theme_override_font_sizes/font_size = 5
-action_mode = 0
-keep_pressed_outside = true
-text = "LAUNCH"
-text_overrun_behavior = 1
-clip_text = true
-script = ExtResource("5_2t4ex")
-
-[node name="LaunchLine" type="Line2D" parent="LaunchButton"]
-unique_name_in_owner = true
-position = Vector2(19, -5)
-points = PackedVector2Array(0, 0)
-width = 3.0
-default_color = Color(0, 1, 1, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-
 [node name="RetryButton" type="Button" parent="HUD"]
 anchors_preset = 7
 anchor_left = 0.5
@@ -138,6 +115,29 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "You died. Try not running into the surface so hard!"
 fit_content = true
+
+[node name="LaunchButton" type="Button" parent="."]
+offset_left = 54.0
+offset_top = 421.0
+offset_right = 92.0
+offset_bottom = 443.0
+theme_override_font_sizes/font_size = 5
+action_mode = 0
+keep_pressed_outside = true
+text = "LAUNCH"
+text_overrun_behavior = 1
+clip_text = true
+script = ExtResource("5_2t4ex")
+
+[node name="LaunchLine" type="Line2D" parent="LaunchButton"]
+unique_name_in_owner = true
+position = Vector2(19, -5)
+points = PackedVector2Array(0, 0)
+width = 3.0
+default_color = Color(0, 1, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [node name="BoundaryArea" type="StaticBody2D" parent="."]
 
