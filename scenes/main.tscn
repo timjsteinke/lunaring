@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=7 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
+[ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
 size = Vector2(768, 47)
@@ -17,19 +18,15 @@ offset = Vector2(384, 256)
 [node name="Platform" parent="." instance=ExtResource("3_de22q")]
 position = Vector2(60, 418)
 
-[node name="Floor" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(384, 488.5)
-shape = SubResource("RectangleShape2D_v6bwf")
-
 [node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
 position = Vector2(307, 444)
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
+unique_name_in_owner = true
 position = Vector2(72, 403)
 
-[node name="Camera2D" type="Camera2D" parent="Astronaut"]
+[node name="AstroCam" type="Camera2D" parent="Astronaut"]
+unique_name_in_owner = true
 zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
@@ -62,5 +59,36 @@ text = "V SPEED: 0 MPH"
 
 [node name="PlayerArea" type="StaticBody2D" parent="."]
 
+[node name="Floor" type="StaticBody2D" parent="PlayerArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea/Floor"]
+position = Vector2(384, 488.5)
+shape = SubResource("RectangleShape2D_v6bwf")
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PlayerArea"]
-polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 512, 768, 512, 768, 0)
+polygon = PackedVector2Array(6, 6, 6, 464, 0, 464, 0, 0, 767, 0, 768, 465, 760, 465, 761, 8)
+
+[node name="LaunchButton" type="Button" parent="."]
+offset_left = 54.0
+offset_top = 421.0
+offset_right = 92.0
+offset_bottom = 443.0
+theme_override_font_sizes/font_size = 5
+action_mode = 0
+keep_pressed_outside = true
+text = "LAUNCH"
+text_overrun_behavior = 1
+clip_text = true
+script = ExtResource("5_2t4ex")
+
+[node name="LaunchLine" type="Line2D" parent="LaunchButton"]
+unique_name_in_owner = true
+position = Vector2(19, -5)
+points = PackedVector2Array(0, 0)
+width = 3.0
+default_color = Color(0, 1, 1, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]

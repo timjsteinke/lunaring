@@ -3,34 +3,47 @@ extends CharacterBody2D
 const GRAVITY : int = 100
 const SPEED = 50.0
 const THRUST_VELOCITY = -50.0
-const FUEL_COST = .25
+const FUEL_COST = .1
 
 @export var fuel = 100 # Makes this variable public 
 var fuel_ui
 var vertical_speed_ui
+var astro_cam
+
 var alive
 var last_vertical_speed
 var second_to_last_vertical_speed
+var camera_zoom
+
+var launching
 
 func _ready():
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
-	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize fuel UI text node pointer
+	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
+	astro_cam = get_node("%AstroCam") # Initialize astrocam pointer
 	alive = true
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
-	
+	camera_zoom = 3
+	launching = true
 	
 func _physics_process(delta: float) -> void:
-	
-	
 	
 	if (alive):
 		second_to_last_vertical_speed = last_vertical_speed
 		last_vertical_speed = velocity.y * -1 / 4
 		velocity.y += GRAVITY * delta # Add the gravity.
-	
-	print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
 		
+		camera_zoom = (abs(position.y) / 452) * 3
+		if camera_zoom < 1:
+			camera_zoom = 1
+		elif camera_zoom > 3:
+			camera_zoom = 3
+		astro_cam.zoom.x = camera_zoom
+		astro_cam.zoom.y = camera_zoom
+		
+		#print ("current_zoom: " + str(camera_zoom))
+	
 	if (second_to_last_vertical_speed <= -30):
 		#vertical_speed_ui.text = "V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH - !!!WARNING!!!"
 		vertical_speed_ui.bbcode_text = "[color=#ff0000]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
@@ -57,14 +70,15 @@ func _physics_process(delta: float) -> void:
 				fuel_ui.text = "FUEL: " + str("%.2f" % fuel) + "%" # Format fuel to decimal places
 			if fuel <= 0:
 				$AnimatedSprite2D.play("idle")
-			
 		else:
 			$AnimatedSprite2D.play("idle")
+			
 		
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var direction := Input.get_axis("ui_left", "ui_right")
 		
+		print ("Direction:" + str(direction))
 		
 		# Flip sprite based on current flip and key presses
 		# May be able to clean this up later
@@ -78,21 +92,26 @@ func _physics_process(delta: float) -> void:
 		elif (direction == -1 && flip_h == true):
 			$AnimatedSprite2D.flip_h = true
 		
+	
 		if not is_on_floor():
 			if direction:
+				print("123")
 				velocity.x = direction * SPEED
-			else:
-				velocity.x = move_toward(velocity.x, 0, SPEED)
+			#else:
+			#	velocity.x = move_toward(velocity.x, 0, SPEED)
 		else:
-			velocity.x = 0
-					
+			if(launching):
+				launching = false
+			else:
+				velocity.x = 0
+		
+						
 		move_and_slide()
 		
-		
-		
-	
+
 
 
 	# useful other commands may need
 	# is_action_just_pressed (handles only first occurence of press of key)
 	# is_on_floor()	
+	# .position.x    ,    global_position.x

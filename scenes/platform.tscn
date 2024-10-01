@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpx53yyvjrhty"]
+[gd_scene load_steps=5 format=3 uid="uid://bpx53yyvjrhty"]
 
+[ext_resource type="Script" path="res://scenes/platform.gd" id="1_p53n7"]
 [ext_resource type="Texture2D" uid="uid://dig4ivi2u26x2" path="res://assets/platform.png" id="1_v8saq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mrntr"]
@@ -17,6 +18,7 @@ animations = [{
 size = Vector2(26, 46)
 
 [node name="Platform" type="StaticBody2D"]
+script = ExtResource("1_p53n7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mrntr")
