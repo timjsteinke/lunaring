@@ -1,12 +1,17 @@
 extends CharacterBody2D
 
+class_name Astronaut
+
 const GRAVITY : int = 100
 const SPEED = 50.0
 const THRUST_VELOCITY = -50.0
 const FUEL_COST = .25
+const MAX_FUEL = 100
 
-@export var fuel = 100 # Makes this variable public 
-var fuel_ui
+@export var fuel = MAX_FUEL # Makes this variable public 
+
+signal fuelChanged
+
 var vertical_speed_ui
 var alive
 var dead_reason
@@ -17,15 +22,18 @@ var second_to_last_vertical_speed
 func start(pos):
 	position = pos
 	alive = true
-	fuel = 100
+	fuel = MAX_FUEL
 
-func _ready():
-	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
+func _ready():	
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize fuel UI text node pointer
 	alive = false
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
 	dead_reason = 0
+
+func useFuel():	
+	fuel -= FUEL_COST	
+	fuelChanged.emit(fuel)
 	
 	
 func _physics_process(delta: float) -> void:
@@ -47,6 +55,7 @@ func _physics_process(delta: float) -> void:
 			alive = false
 			died(0)
 			fuel = 0
+			fuelChanged.emit()
 			velocity.y = 0
 			$AnimatedSprite2D.play("death")
 	elif (second_to_last_vertical_speed <= -15):
@@ -58,14 +67,17 @@ func _physics_process(delta: float) -> void:
 		# Handle Thrusters
 		if Input.is_action_pressed("Jetpack_and_Start"): 
 			if fuel > 0:
+				#TODO: Perhaps consider lerping the velocity so we get some resistance to momentum before thrusting up
 				velocity.y = THRUST_VELOCITY
 				$AnimatedSprite2D.play("boosting")
-				fuel -= FUEL_COST
-				fuel_ui.text = "FUEL: " + str("%.2f" % fuel) + "%" # Format fuel to decimal places
+				$GPUParticles2D.emitting = true
+				useFuel()
 			if fuel <= 0:
+				$GPUParticles2D.emitting = false
 				$AnimatedSprite2D.play("idle")
 			
 		else:
+			$GPUParticles2D.emitting = false
 			$AnimatedSprite2D.play("idle")
 		
 		# Get the input direction and handle the movement/deceleration.

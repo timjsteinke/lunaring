@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://drxu5atyc48fh"]
+[gd_scene load_steps=10 format=3 uid="uid://drxu5atyc48fh"]
 
 [ext_resource type="Script" path="res://scenes/astronaut.gd" id="1_65tvb"]
 [ext_resource type="Texture2D" uid="uid://7425xc3nfclp" path="res://assets/astronaut-booster-1.png" id="1_r35v2"]
@@ -47,6 +47,15 @@ animations = [{
 radius = 7.0
 height = 28.0
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hicmm"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 98, 0)
+color = Color(1, 0.127, 0.03, 1)
+hue_variation_min = -0.2
+hue_variation_max = 0.06
+
 [node name="Astronaut" type="CharacterBody2D"]
 script = ExtResource("1_65tvb")
 
@@ -57,3 +66,10 @@ animation = &"death"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_6ldwy")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-5, 0)
+emitting = false
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_hicmm")
+lifetime = 0.5

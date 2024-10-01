@@ -47,6 +47,7 @@ shape = SubResource("RectangleShape2D_lf80f")
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
 position = Vector2(72, 403)
+fuel = 100
 
 [node name="Camera2D" type="Camera2D" parent="Astronaut"]
 zoom = Vector2(3, 3)
