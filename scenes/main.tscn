@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=14 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
@@ -63,10 +63,10 @@ limit_bottom = 600
 [node name="FuelUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 layout_direction = 1
-offset_left = 6.0
-offset_top = 466.0
-offset_right = 149.0
-offset_bottom = 489.0
+offset_left = 4.0
+offset_top = 487.0
+offset_right = 147.0
+offset_bottom = 510.0
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "FUEL: "
@@ -74,10 +74,10 @@ scroll_active = false
 
 [node name="VerticalSpeedUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
-offset_left = 6.0
-offset_top = 482.0
-offset_right = 339.0
-offset_bottom = 513.0
+offset_left = 4.0
+offset_top = 469.0
+offset_right = 337.0
+offset_bottom = 500.0
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "V SPEED: 0 MPH"
@@ -126,6 +126,29 @@ grow_vertical = 2
 text = "You died. Try not running into the surface so hard!"
 fit_content = true
 
+[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
+layer = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/CanvasLayer" node_paths=PackedStringArray("astronaut")]
+material = SubResource("CanvasItemMaterial_l5pb3")
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = -17.0
+offset_right = 352.0
+offset_bottom = 11.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = SubResource("Theme_q2rcd")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_hb0yg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
+step = 1.0
+value = 100.0
+script = ExtResource("6_3hpj6")
+astronaut = NodePath("../../../Astronaut")
+
 [node name="LaunchButton" type="Button" parent="."]
 offset_left = 54.0
 offset_top = 421.0
@@ -148,29 +171,6 @@ default_color = Color(0, 1, 1, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
-
-[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
-layer = 2
-
-[node name="ProgressBar" type="ProgressBar" parent="HUD/CanvasLayer" node_paths=PackedStringArray("astronaut")]
-material = SubResource("CanvasItemMaterial_l5pb3")
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 34.0
-offset_top = -44.0
-offset_right = 38.0
-offset_bottom = -17.0
-grow_vertical = 0
-scale = Vector2(39.5732, 0.358845)
-theme = SubResource("Theme_q2rcd")
-theme_override_styles/background = SubResource("StyleBoxFlat_hb0yg")
-theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
-step = 1.0
-rounded = true
-show_percentage = false
-script = ExtResource("6_3hpj6")
-astronaut = NodePath("../../../Astronaut")
 
 [node name="BoundaryArea" type="StaticBody2D" parent="."]
 

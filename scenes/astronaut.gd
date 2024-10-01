@@ -10,7 +10,7 @@ const MAX_FUEL = 100
 
 @export var fuel = MAX_FUEL # Makes this variable public 
 
-signal fuelChanged
+signal fuelChanged(current_fuel)
 
 var fuel_ui
 var vertical_speed_ui
@@ -44,6 +44,7 @@ func _ready():
 func useFuel():	
 	fuel -= FUEL_COST	
 	fuelChanged.emit(fuel)
+	print("Fuel:" + str(fuel))
 	
 	
 func _physics_process(delta: float) -> void:
@@ -121,7 +122,7 @@ func _physics_process(delta: float) -> void:
 	
 		if not is_on_floor():
 			if direction:
-				print("123")
+				#print("123")
 				velocity.x = direction * SPEED
 			#else:
 			#	velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -130,17 +131,9 @@ func _physics_process(delta: float) -> void:
 				launching = false
 			else:
 				velocity.x = 0
-		
-						
+							
 		move_and_slide()
 		
-
-
-
-	# useful other commands may need
-	# is_action_just_pressed (handles only first occurence of press of key)
-	# is_on_floor()	
-	# .position.x    ,    global_position.x
 
 func died(reason):
 	#This function handles the player dieing
@@ -155,3 +148,10 @@ func _on_pink_crystal_body_entered(body):
 	if is_on_floor() && alive:
 		print ("Player has landed on the Pink Crystal")
 		
+
+
+
+# useful other commands may need
+	# is_action_just_pressed (handles only first occurence of press of key)
+	# is_on_floor()	
+	# .position.x    ,    global_position.x
