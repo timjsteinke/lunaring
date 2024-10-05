@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=15 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
+[ext_resource type="PackedScene" uid="uid://tcmuy4s1hh3q" path="res://scenes/moon_base.tscn" id="3_53vnx"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
 [ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
@@ -29,6 +30,9 @@ script = ExtResource("1_51ee7")
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_8gkfy")
 offset = Vector2(384, 256)
+
+[node name="MoonBase" parent="." instance=ExtResource("3_53vnx")]
+position = Vector2(125, 455)
 
 [node name="Platform" parent="." instance=ExtResource("3_de22q")]
 position = Vector2(60, 418)

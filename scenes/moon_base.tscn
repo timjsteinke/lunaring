@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://tcmuy4s1hh3q"]
+
+[ext_resource type="Texture2D" uid="uid://bfyjq2vl0lr1x" path="res://assets/base.png" id="1_pwnju"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4lm6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pwnju")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gaxs6"]
+size = Vector2(54, 48)
+
+[node name="MoonBase" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_q4lm6")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(15, 0)
+shape = SubResource("RectangleShape2D_gaxs6")
