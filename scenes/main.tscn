@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=20 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
@@ -31,6 +31,9 @@ size = Vector2(62, 3)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1uoul"]
 size = Vector2(62, 4.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_85sst"]
+size = Vector2(26, 2)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_51ee7")
@@ -217,8 +220,16 @@ shape = SubResource("RectangleShape2D_1uoul")
 position = Vector2(348, 147)
 texture = ExtResource("10_5hyum")
 
+[node name="PlatformArea" type="Area2D" parent="."]
+position = Vector2(614, 888)
+
+[node name="PlatformCollisionShape" type="CollisionShape2D" parent="PlatformArea"]
+position = Vector2(-541, -469)
+shape = SubResource("RectangleShape2D_85sst")
+
 [connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]
 [connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
 [connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
+[connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]

@@ -4,7 +4,7 @@ class_name Astronaut
 
 const GRAVITY : int = 100
 const SPEED = 1.0
-const THRUST_VELOCITY = -5.0
+const THRUST_VELOCITY = -3.0
 const FUEL_COST = .25
 const MAX_FUEL = 100
 
@@ -159,6 +159,7 @@ func died(reason):
 	#$HUD/RetryButton.Show()
 	
 
+# Triggers when astronaut lands on pink crystal. Tries to harvest pink crystal, but checks conditions
 func _on_pink_crystal_body_entered(body):
 	#This function handles the player entering the pink crystal
 	if is_on_floor() && alive:
@@ -175,7 +176,7 @@ func _on_pink_crystal_body_entered(body):
 	# is_on_floor()	
 	# .position.x    ,    global_position.x
 
-
+# Triggers when astronaut lands on green crystal. Tries to harvest green crystal, but checks conditions
 func _on_green_crystal_body_entered(body):
 	if is_on_floor() && alive:
 		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
@@ -187,7 +188,7 @@ func _on_green_crystal_body_entered(body):
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 		
 
-
+# Triggers when astronaut lands on blue crystal. Tries to harvest blue crystal, but checks conditions
 func _on_blue_crystal_body_entered(body):
 	if is_on_floor() && alive:
 		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
@@ -198,3 +199,7 @@ func _on_blue_crystal_body_entered(body):
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 		
+
+
+func _on_platform_area_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
