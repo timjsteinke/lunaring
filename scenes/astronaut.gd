@@ -23,6 +23,14 @@ var last_vertical_speed
 var second_to_last_vertical_speed
 var camera_zoom
 
+var astronaut_max_inventory
+var quantity_pink_crystal_left
+var astronaut_quantity_pink_crystal
+var quantity_blue_crystal_left
+var astronaut_quantity_blue_crystal
+var quantity_green_crystal_left
+var astronaut_quantity_green_crystal
+
 var launching
 
 func start(pos):
@@ -40,11 +48,19 @@ func _ready():
 	camera_zoom = 3
 	launching = true
 	dead_reason = 0
+	
+	astronaut_max_inventory = 1
+	quantity_pink_crystal_left = 5
+	astronaut_quantity_pink_crystal = 0
+	quantity_blue_crystal_left = 5
+	astronaut_quantity_blue_crystal = 0
+	quantity_green_crystal_left = 5
+	astronaut_quantity_green_crystal = 0
 
 func useFuel():	
 	fuel -= FUEL_COST	
 	fuelChanged.emit(fuel)
-	print("Fuel:" + str(fuel))
+	#print("Fuel:" + str(fuel))
 	
 	
 func _physics_process(delta: float) -> void:
@@ -105,7 +121,7 @@ func _physics_process(delta: float) -> void:
 		# As good practice, you should replace UI actions with custom gameplay actions.
 		var direction := Input.get_axis("move_left", "move_right")
 		
-		print ("Direction:" + str(direction))
+		#print ("Direction:" + str(direction))
 		
 		# Flip sprite based on current flip and key presses
 		# May be able to clean this up later
@@ -146,10 +162,13 @@ func died(reason):
 func _on_pink_crystal_body_entered(body):
 	#This function handles the player entering the pink crystal
 	if is_on_floor() && alive:
-		print ("Player has landed on the Pink Crystal")
-		
-
-
+		if quantity_pink_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
+			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Pink Crystal(s)")
+			astronaut_quantity_pink_crystal = astronaut_max_inventory
+		elif quantity_pink_crystal_left <= 0:
+			print ("There are no Pink Crystals left")
+		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
+			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 
 # useful other commands may need
 	# is_action_just_pressed (handles only first occurence of press of key)
@@ -159,11 +178,23 @@ func _on_pink_crystal_body_entered(body):
 
 func _on_green_crystal_body_entered(body):
 	if is_on_floor() && alive:
-		print ("Player has landed on the Green Crystal")
+		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
+			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Green Crystal(s)")
+			astronaut_quantity_green_crystal = astronaut_max_inventory
+		elif quantity_green_crystal_left <= 0:
+			print ("There are no Green Crystals left")
+		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
+			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 		
 
 
 func _on_blue_crystal_body_entered(body):
 	if is_on_floor() && alive:
-		print ("Player has landed on the Blue Crystal")
+		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
+			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Blue Crystal(s)")
+			astronaut_quantity_blue_crystal = astronaut_max_inventory
+		elif quantity_blue_crystal_left <= 0:
+			print ("There are no Blue Crystals left")
+		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
+			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 		
