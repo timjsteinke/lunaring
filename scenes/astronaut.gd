@@ -4,7 +4,7 @@ class_name Astronaut
 
 const GRAVITY : int = 100
 const SPEED = 1.0
-const THRUST_VELOCITY = -50.0
+const THRUST_VELOCITY = -5.0
 const FUEL_COST = .25
 const MAX_FUEL = 100
 
@@ -66,7 +66,7 @@ func _physics_process(delta: float) -> void:
 		
 		#print ("current_zoom: " + str(camera_zoom))
 	
-	if (second_to_last_vertical_speed <= -30):
+	if (second_to_last_vertical_speed <= -30 ):
 		#vertical_speed_ui.text = "V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH - !!!WARNING!!!"
 		vertical_speed_ui.bbcode_text = "[color=#ff0000]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
 		
@@ -89,7 +89,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("Jetpack_and_Start"): 
 			if fuel > 0:
 				#TODO: Perhaps consider lerping the velocity so we get some resistance to momentum before thrusting up
-				velocity.y = THRUST_VELOCITY
+				velocity.y = THRUST_VELOCITY + velocity.y
 				$AnimatedSprite2D.play("boosting")
 				$GPUParticles2D.emitting = true
 				useFuel()
@@ -155,3 +155,15 @@ func _on_pink_crystal_body_entered(body):
 	# is_action_just_pressed (handles only first occurence of press of key)
 	# is_on_floor()	
 	# .position.x    ,    global_position.x
+
+
+func _on_green_crystal_body_entered(body):
+	if is_on_floor() && alive:
+		print ("Player has landed on the Green Crystal")
+		
+
+
+func _on_blue_crystal_body_entered(body):
+	if is_on_floor() && alive:
+		print ("Player has landed on the Blue Crystal")
+		
