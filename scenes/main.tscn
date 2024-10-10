@@ -166,6 +166,19 @@ value = 100.0
 script = ExtResource("6_3hpj6")
 astronaut = NodePath("../../../Astronaut")
 
+[node name="PlayerStats" type="RichTextLabel" parent="HUD"]
+unique_name_in_owner = true
+offset_right = 220.0
+offset_bottom = 92.0
+theme_override_colors/default_color = Color(0.227451, 0.403922, 0.964706, 1)
+theme_override_colors/selection_color = Color(0.470588, 0.470588, 0.470588, 1)
+theme_override_font_sizes/normal_font_size = 7
+bbcode_enabled = true
+text = "[center][color=#989858]Inventory Capacity=1[/color]
+[color=#ec2dca]Pink Crystals  0 [/color]
+[color=#01a7c0]Blue Crystals  0 [/color]
+[color=#00bf43]Green Crystals  0 [/color][/center]"
+
 [node name="LaunchButton" type="Button" parent="."]
 offset_left = 54.0
 offset_top = 421.0

@@ -15,6 +15,7 @@ signal fuelChanged(current_fuel)
 var fuel_ui
 var vertical_speed_ui
 var astro_cam
+var player_stats_ui
 
 var alive
 var dead_reason
@@ -42,6 +43,7 @@ func _ready():
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
 	astro_cam = get_node("%AstroCam") # Initialize astrocam pointer
+	player_stats_ui = get_node("%PlayerStats") # Initialize vertical speed UI text node pointer
 	alive = true
 	last_vertical_speed = 0
 	second_to_last_vertical_speed = 0
@@ -158,6 +160,11 @@ func died(reason):
 	#$DeadLabel.Show()
 	#$HUD/RetryButton.Show()
 	
+func updateStats():
+	#This function handles updating the HUD with Player stats
+	var LabelText = "[center][color=#989858]Inventory Capacity " + str(astronaut_max_inventory) + "[/color] \n [color=#ec2dca]Pink Crystals  " + str(astronaut_quantity_pink_crystal) + " [/color] \n [color=#01a7c0]Blue Crystals  " + str(astronaut_quantity_blue_crystal) + " [/color] \n [color=#00bf43]Green Crystals  " + str(astronaut_quantity_green_crystal) + " [/color][/center]"
+	player_stats_ui.bbcode_text = LabelText
+	
 
 # Triggers when astronaut lands on pink crystal. Tries to harvest pink crystal, but checks conditions
 func _on_pink_crystal_body_entered(body):
@@ -166,6 +173,7 @@ func _on_pink_crystal_body_entered(body):
 		if quantity_pink_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Pink Crystal(s)")
 			astronaut_quantity_pink_crystal = astronaut_max_inventory
+			updateStats()
 		elif quantity_pink_crystal_left <= 0:
 			print ("There are no Pink Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
@@ -182,6 +190,7 @@ func _on_green_crystal_body_entered(body):
 		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Green Crystal(s)")
 			astronaut_quantity_green_crystal = astronaut_max_inventory
+			updateStats()
 		elif quantity_green_crystal_left <= 0:
 			print ("There are no Green Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
@@ -194,6 +203,7 @@ func _on_blue_crystal_body_entered(body):
 		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Blue Crystal(s)")
 			astronaut_quantity_blue_crystal = astronaut_max_inventory
+			updateStats()
 		elif quantity_blue_crystal_left <= 0:
 			print ("There are no Blue Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
