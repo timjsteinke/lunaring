@@ -162,7 +162,7 @@ func died(reason):
 	
 func updateStats():
 	#This function handles updating the HUD with Player stats
-	var LabelText = "[center][color=#989858]Inventory Capacity " + str(astronaut_max_inventory) + "[/color] \n [color=#ec2dca]Pink Crystals  " + str(astronaut_quantity_pink_crystal) + " [/color] \n [color=#01a7c0]Blue Crystals  " + str(astronaut_quantity_blue_crystal) + " [/color] \n [color=#00bf43]Green Crystals  " + str(astronaut_quantity_green_crystal) + " [/color][/center]"
+	var LabelText = "[center][color=#989858]Inventory Capacity " + str(astronaut_max_inventory) + "\n Thrust Power " + str(-1.0*THRUST_VELOCITY) + "[/color] \n [color=#ec2dca]Pink Crystals  " + str(astronaut_quantity_pink_crystal) + " [/color] \n [color=#01a7c0]Blue Crystals  " + str(astronaut_quantity_blue_crystal) + " [/color] \n [color=#00bf43]Green Crystals  " + str(astronaut_quantity_green_crystal) + " [/color][/center]"
 	player_stats_ui.bbcode_text = LabelText
 	
 
@@ -211,5 +211,13 @@ func _on_blue_crystal_body_entered(body):
 		
 
 
-func _on_platform_area_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+func _on_platform_area_body_entered(body):
+	# When landing on the platform need to sell crystals and open shop
+	if alive && 0 < astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal:
+		print("Sold crystals at the Shop. Time to buy")
+		astronaut_quantity_pink_crystal = 0
+		astronaut_quantity_blue_crystal = 0
+		astronaut_quantity_green_crystal = 0
+		fuel = 100
+		updateStats()
+		fuelChanged.emit(fuel)
