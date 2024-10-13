@@ -71,8 +71,8 @@ func update_stats():
 	astronaut_quantity_blue_crystal = parent.game_data["inventory"]["blue_crystals"]	
 	astronaut_quantity_green_crystal = parent.game_data["inventory"]["green_crystals"]	
 	fuel_cost = .25 - (parent.game_data["upgrades"]["fuel_efficiency_upgrade"] * .05)
-	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 25) + 100
-	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 25)
+	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 10) + 100
+	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 1)
 	
 	print("astonaut stats updated:")
 	print("test: " + str(parent.game_data["upgrades"]["fuel_capacity_upgrade"]))
