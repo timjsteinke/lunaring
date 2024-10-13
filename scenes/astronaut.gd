@@ -2,13 +2,13 @@ extends CharacterBody2D
 
 class_name Astronaut
 
-const GRAVITY : int = 100
-const SPEED = 1.0
-const THRUST_VELOCITY = -3.0
-const FUEL_COST = .25
-const MAX_FUEL = 100
+var gravity : int = 100
+var SPEED = 1.0
+var thrust_velocity = -3.0
+var fuel_cost = .25
+var max_fuel = 100
 
-@export var fuel = MAX_FUEL # Makes this variable public 
+@export var fuel = max_fuel # Makes this variable readable to the ui 
 
 signal fuelChanged(current_fuel)
 
@@ -37,9 +37,10 @@ var launching
 func start(pos):
 	position = pos
 	alive = true
-	fuel = MAX_FUEL
+	fuel = max_fuel
 
 func _ready():
+	print("astronaut ready")
 	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
 	astro_cam = get_node("%AstroCam") # Initialize astrocam pointer
@@ -51,26 +52,43 @@ func _ready():
 	launching = true
 	dead_reason = 0
 	
-	astronaut_max_inventory = 1
-	quantity_pink_crystal_left = 5
 	astronaut_quantity_pink_crystal = 0
-	quantity_blue_crystal_left = 5
 	astronaut_quantity_blue_crystal = 0
-	quantity_green_crystal_left = 5
 	astronaut_quantity_green_crystal = 0
+	quantity_green_crystal_left = 0	
+	quantity_pink_crystal_left = 5
+	quantity_blue_crystal_left = 5
+	quantity_green_crystal_left = 5
+	update_stats()
+	
+func update_stats():
+	var parent = get_parent()
+	
+	gravity = parent.game_data["settings"]["gravity"]
+	astronaut_max_inventory = parent.game_data["settings"]["astronaut_max_inventory"]	
+	astronaut_quantity_pink_crystal = parent.game_data["inventory"]["pink_crystals"]	
+	astronaut_quantity_blue_crystal = parent.game_data["inventory"]["blue_crystals"]	
+	astronaut_quantity_green_crystal = parent.game_data["inventory"]["green_crystals"]	
+	fuel_cost = .25 - (parent.game_data["upgrades"]["fuel_efficiency_upgrade"] * .05)
+	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 25) + 100
+	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 25)
+	
+	print("astonaut stats updated:")
+	print("test: " + str(parent.game_data["upgrades"]["fuel_capacity_upgrade"]))
+	print("fuel_cost: ", str(fuel_cost))
+	print("max_fuel: ", str(max_fuel))
+	print("thrust velocity: ", str(thrust_velocity))
 
 func useFuel():	
-	fuel -= FUEL_COST	
+	fuel -= fuel_cost
 	fuelChanged.emit(fuel)
-	#print("Fuel:" + str(fuel))
-	
 	
 func _physics_process(delta: float) -> void:
 	
 	if (alive):
 		second_to_last_vertical_speed = last_vertical_speed
 		last_vertical_speed = velocity.y * -1 / 4
-		velocity.y += GRAVITY * delta # Add the gravity.
+		velocity.y += gravity * delta # Add the gravity.
 	
 	#print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
 		
@@ -107,7 +125,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed("Jetpack_and_Start"): 
 			if fuel > 0:
 				#TODO: Perhaps consider lerping the velocity so we get some resistance to momentum before thrusting up
-				velocity.y = THRUST_VELOCITY + velocity.y
+				velocity.y = thrust_velocity + velocity.y
 				$AnimatedSprite2D.play("boosting")
 				$GPUParticles2D.emitting = true
 				useFuel()
@@ -162,7 +180,11 @@ func died(reason):
 	
 func updateStats():
 	#This function handles updating the HUD with Player stats
-	var LabelText = "[center][color=#989858]Inventory Capacity " + str(astronaut_max_inventory) + "\n Thrust Power " + str(-1.0*THRUST_VELOCITY) + "[/color] \n [color=#ec2dca]Pink Crystals  " + str(astronaut_quantity_pink_crystal) + " [/color] \n [color=#01a7c0]Blue Crystals  " + str(astronaut_quantity_blue_crystal) + " [/color] \n [color=#00bf43]Green Crystals  " + str(astronaut_quantity_green_crystal) + " [/color][/center]"
+	var LabelText = "[center][color=#989858]Inventory Capacity " + str(astronaut_max_inventory) + "\n \
+	Thrust Power " + str(-1.0*thrust_velocity) + "[/color] \n \
+	 [color=#ec2dca]Pink Crystals  " + str(astronaut_quantity_pink_crystal) + " [/color] \n\
+	 [color=#01a7c0]Blue Crystals  " + str(astronaut_quantity_blue_crystal) + " [/color] \n\
+	 [color=#00bf43]Green Crystals  " + str(astronaut_quantity_green_crystal) + " [/color][/center]"
 	player_stats_ui.bbcode_text = LabelText
 	
 
@@ -213,11 +235,11 @@ func _on_blue_crystal_body_entered(body):
 
 func _on_platform_area_body_entered(body):
 	# When landing on the platform need to sell crystals and open shop
-	if alive && 0 < astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal:
+	if alive && (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
 		print("Sold crystals at the Shop. Time to buy")
 		astronaut_quantity_pink_crystal = 0
 		astronaut_quantity_blue_crystal = 0
 		astronaut_quantity_green_crystal = 0
-		fuel = 100
+		fuel = max_fuel
 		updateStats()
 		fuelChanged.emit(fuel)
