@@ -258,3 +258,4 @@ shape = SubResource("RectangleShape2D_85sst")
 [connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
 [connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]
+[connection signal="body_exited" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_exited"]

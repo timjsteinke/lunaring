@@ -7,6 +7,7 @@ var SPEED = 1.0
 var thrust_velocity = -3.0
 var fuel_cost = .25
 var max_fuel = 100
+@export var is_on_platform = true
 
 @export var fuel = max_fuel # Makes this variable readable to the ui 
 
@@ -232,14 +233,18 @@ func _on_blue_crystal_body_entered(body):
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
 		
 
-
+func _on_platform_area_body_exited(body):
+	is_on_platform = false
+	
 func _on_platform_area_body_entered(body):
 	# When landing on the platform need to sell crystals and open shop
-	if alive && (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
-		print("Sold crystals at the Shop. Time to buy")
-		astronaut_quantity_pink_crystal = 0
-		astronaut_quantity_blue_crystal = 0
-		astronaut_quantity_green_crystal = 0
-		fuel = max_fuel
-		updateStats()
-		fuelChanged.emit(fuel)
+	if alive:
+		is_on_platform = true
+		if (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
+			print("Sold crystals at the Shop. Time to buy")
+			astronaut_quantity_pink_crystal = 0
+			astronaut_quantity_blue_crystal = 0
+			astronaut_quantity_green_crystal = 0
+			fuel = max_fuel
+			updateStats()
+			fuelChanged.emit(fuel)	

@@ -60,6 +60,6 @@ func _on_start_button_pressed():
 	$HUD/StartButton.hide()
 	$Astronaut.start($StartPosition.position)
 
-# TODO: Don't allow this if we are launched / playing the game, or dead.
 func _on_button_pressed() -> void:
-	SceneSwitcher.switch_scene("shop")
+	if $Astronaut.is_on_platform == true:
+		SceneSwitcher.switch_scene("shop")
