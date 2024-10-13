@@ -17,7 +17,6 @@ func _deferred_switch_scene(res_path):
 	current_scene.free()
 	var new_scene = load("res://scenes/" + res_path  + ".tscn")
 	current_scene = new_scene.instantiate()
-	
-	get_tree().root.add_child(current_scene)	
 	current_scene.set_game_data(game_data)	 
+	get_tree().root.add_child(current_scene)
 	get_tree().current_scene = current_scene

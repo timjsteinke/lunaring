@@ -30,9 +30,6 @@ const starting_lives = 3
 # This is called when we switch scenes. In theory, we could use it to save game state to a file and bring it back.
 func set_game_data(new_game_data: Dictionary):
 	game_data = new_game_data
-	print('set_game_data')
-	update_ui()	
-	$Astronaut.updateStats()
 
 # Update the UI when we switch scenes
 # Set all the labels to the correct things.
@@ -49,6 +46,7 @@ func _ready():
 	$HUD/DeadLabel.hide()
 	print('_ready')
 	update_ui()	
+	$Astronaut.updateStats()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
