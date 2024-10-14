@@ -35,6 +35,9 @@ var astronaut_quantity_blue_crystal
 var quantity_green_crystal_left
 var astronaut_quantity_green_crystal
 
+var sound_jetpack_off_play = false
+var sound_landing_play = false
+
 var launching
 
 func start(pos):
@@ -108,6 +111,10 @@ func _physics_process(delta: float) -> void:
 		#vertical_speed_ui.text = "V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH - !!!WARNING!!!"
 		vertical_speed_ui.bbcode_text = "[color=#ff0000]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
 		
+		if not $SoundVelocityAltitudeAlarm.is_playing():
+			$SoundVelocityAltitudeAlarm.play()
+		
+		
 		#vertical_speed_ui.pop()
 		if (is_on_floor()):
 			print ("Is on Floor")
@@ -118,8 +125,10 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 			$AnimatedSprite2D.play("death")
 	elif (second_to_last_vertical_speed <= -15):
+		$SoundVelocityAltitudeAlarm.stop()
 		vertical_speed_ui.bbcode_text = "[color=#ffff00]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
 	else:
+		$SoundVelocityAltitudeAlarm.stop()
 		vertical_speed_ui.bbcode_text = "[color=#ffffff]V SPEED: " + str("%5.0f" % second_to_last_vertical_speed) + " MPH[/color]"
 			
 	if (alive):
@@ -130,14 +139,26 @@ func _physics_process(delta: float) -> void:
 				velocity.y = thrust_velocity + velocity.y
 				$AnimatedSprite2D.play("boosting")
 				$GPUParticles2D.emitting = true
+				#if (not $SoundJetpackLoop.is_playing()) && (not $SoundJetpackOn.is_playing()):
+				#	$SoundJetpackOn.play()
+				if not $SoundJetpackLoop.is_playing():
+					$SoundJetpackLoop.play()
 				useFuel()
 			if fuel <= 0:
 				$GPUParticles2D.emitting = false
 				$AnimatedSprite2D.play("idle")
+			sound_jetpack_off_play = true
+			
 		else:
 			$GPUParticles2D.emitting = false
 			$AnimatedSprite2D.play("idle")
+			$SoundJetpackLoop.stop()
 			
+			if (sound_jetpack_off_play):
+				$SoundJetpackOff.play()
+				sound_jetpack_off_play = false
+		
+		
 		
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
@@ -159,6 +180,7 @@ func _physics_process(delta: float) -> void:
 		
 	
 		if not is_on_floor():
+			sound_landing_play = true
 			if direction:
 				#print("123")
 				velocity.x = direction * SPEED + velocity.x
@@ -169,6 +191,9 @@ func _physics_process(delta: float) -> void:
 				launching = false
 			else:
 				velocity.x = 0
+				if (sound_landing_play):
+					if not $SoundLanding.is_playing():
+						$SoundLanding.play()
 							
 		move_and_slide()
 		

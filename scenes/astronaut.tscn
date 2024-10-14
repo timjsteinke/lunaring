@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drxu5atyc48fh"]
+[gd_scene load_steps=15 format=3 uid="uid://drxu5atyc48fh"]
 
 [ext_resource type="Script" path="res://scenes/astronaut.gd" id="1_65tvb"]
 [ext_resource type="Texture2D" uid="uid://7425xc3nfclp" path="res://assets/astronaut-booster-1.png" id="1_r35v2"]
@@ -6,6 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://b8rmb4a1wtis8" path="res://assets/astronaut-booster-3.png" id="3_uutk5"]
 [ext_resource type="Texture2D" uid="uid://c80vys54t0xc1" path="res://assets/astronaut-death.png" id="5_hiku6"]
 [ext_resource type="Texture2D" uid="uid://cwyiup11rb3nl" path="res://assets/astronaut-idle.png" id="5_y8cpy"]
+[ext_resource type="AudioStream" uid="uid://igg1aqoou8bt" path="res://assets/sounds/JetPackSustained_FullSustained_Variant1.mp3" id="7_p3fv6"]
+[ext_resource type="AudioStream" uid="uid://v4cxusb3505a" path="res://assets/sounds/JetPackOff_Variant1.wav" id="8_10d77"]
+[ext_resource type="AudioStream" uid="uid://c67dbklwotfh8" path="res://assets/sounds/JetPackIgnition_Variant1.wav" id="9_riaax"]
+[ext_resource type="AudioStream" uid="uid://ev28038q38a1" path="res://assets/sounds/LandingImpact_Variant1.wav" id="10_jcfyc"]
+[ext_resource type="AudioStream" uid="uid://loyqtlkewt0b" path="res://assets/sounds/VelocityAltitudeAlarm_Variant1.wav" id="11_0a288"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wwv17"]
 animations = [{
@@ -73,3 +78,18 @@ emitting = false
 amount = 5
 process_material = SubResource("ParticleProcessMaterial_hicmm")
 lifetime = 0.5
+
+[node name="SoundJetpackLoop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_p3fv6")
+
+[node name="SoundJetpackOff" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_10d77")
+
+[node name="SoundJetpackOn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_riaax")
+
+[node name="SoundLanding" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_jcfyc")
+
+[node name="SoundVelocityAltitudeAlarm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_0a288")

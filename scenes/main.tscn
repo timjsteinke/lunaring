@@ -18,6 +18,12 @@ size = Vector2(768, 47)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf80f"]
 size = Vector2(64, 3)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ii3mg"]
+size = Vector2(62, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uoul"]
+size = Vector2(62, 4.5)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l5pb3"]
 
 [sub_resource type="Theme" id="Theme_q2rcd"]
@@ -26,12 +32,6 @@ size = Vector2(64, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dr6ie"]
 bg_color = Color(1, 0.0705882, 0.239216, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ii3mg"]
-size = Vector2(62, 3)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uoul"]
-size = Vector2(62, 4.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85sst"]
 size = Vector2(26, 2)
@@ -61,6 +61,28 @@ position = Vector2(307, 444)
 [node name="PCCollisionShape2D" type="CollisionShape2D" parent="PinkCrystal"]
 position = Vector2(0, 21.5)
 shape = SubResource("RectangleShape2D_lf80f")
+
+[node name="BlueCrystal" type="Area2D" parent="."]
+position = Vector2(453, 444)
+
+[node name="BCCollisionShape2D" type="CollisionShape2D" parent="BlueCrystal"]
+position = Vector2(0, 21.5)
+shape = SubResource("RectangleShape2D_ii3mg")
+
+[node name="BlueCrystal2" type="Sprite2D" parent="BlueCrystal"]
+position = Vector2(0, 2)
+texture = ExtResource("9_o8wju")
+
+[node name="GreenCrystal" type="Area2D" parent="."]
+position = Vector2(300, 300)
+
+[node name="GCCollisionShape2D" type="CollisionShape2D" parent="GreenCrystal"]
+position = Vector2(348, 165.75)
+shape = SubResource("RectangleShape2D_1uoul")
+
+[node name="GreenCrystal2" type="Sprite2D" parent="GreenCrystal"]
+position = Vector2(348, 147)
+texture = ExtResource("10_5hyum")
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
 unique_name_in_owner = true
@@ -222,28 +244,6 @@ polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 51
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(72, 403)
 
-[node name="BlueCrystal" type="Area2D" parent="."]
-position = Vector2(453, 444)
-
-[node name="BCCollisionShape2D" type="CollisionShape2D" parent="BlueCrystal"]
-position = Vector2(0, 21.5)
-shape = SubResource("RectangleShape2D_ii3mg")
-
-[node name="BlueCrystal2" type="Sprite2D" parent="BlueCrystal"]
-position = Vector2(0, 2)
-texture = ExtResource("9_o8wju")
-
-[node name="GreenCrystal" type="Area2D" parent="."]
-position = Vector2(300, 300)
-
-[node name="GCCollisionShape2D" type="CollisionShape2D" parent="GreenCrystal"]
-position = Vector2(348, 165.75)
-shape = SubResource("RectangleShape2D_1uoul")
-
-[node name="GreenCrystal2" type="Sprite2D" parent="GreenCrystal"]
-position = Vector2(348, 147)
-texture = ExtResource("10_5hyum")
-
 [node name="PlatformArea" type="Area2D" parent="."]
 position = Vector2(614, 888)
 
@@ -252,10 +252,10 @@ position = Vector2(-541, -469)
 shape = SubResource("RectangleShape2D_85sst")
 
 [connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
+[connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
+[connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]
-[connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
-[connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]
 [connection signal="body_exited" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_exited"]
