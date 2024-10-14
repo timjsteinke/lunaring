@@ -2,6 +2,10 @@ extends CharacterBody2D
 
 class_name Astronaut
 
+const PINK_CRYSTAL_VALUE = 500
+const GREEN_CRYSTAL_VALUE = 300
+const BLUE_CRYSTAL_VALUE = 100
+
 var gravity : int = 100
 var SPEED = 1.0
 var thrust_velocity = -3.0
@@ -69,20 +73,21 @@ func _ready():
 	update_stats()
 	
 func update_stats():
-	gravity = parent.game_data["settings"]["gravity"]
-	astronaut_max_inventory = parent.game_data["settings"]["astronaut_max_inventory"]	
+	gravity = parent.game_data["settings"]["gravity"]	
 	astronaut_quantity_pink_crystal = parent.game_data["inventory"]["pink_crystals"]	
 	astronaut_quantity_blue_crystal = parent.game_data["inventory"]["blue_crystals"]	
 	astronaut_quantity_green_crystal = parent.game_data["inventory"]["green_crystals"]	
 	fuel_cost = .25 - (parent.game_data["upgrades"]["fuel_efficiency_upgrade"] * .05)
 	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 10) + 100
 	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 1)
+	astronaut_max_inventory = (parent.game_data["upgrades"]["max_inventory"])
 	
 	print("astonaut stats updated:")
 	print("test: " + str(parent.game_data["upgrades"]["fuel_capacity_upgrade"]))
 	print("fuel_cost: ", str(fuel_cost))
 	print("max_fuel: ", str(max_fuel))
 	print("thrust velocity: ", str(thrust_velocity))
+	print("max inventory: ", str(astronaut_max_inventory))
 
 func useFuel():	
 	fuel -= fuel_cost
@@ -271,9 +276,13 @@ func _on_platform_area_body_entered(body):
 		is_on_platform = true
 		if (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
 			print("Sold crystals at the Shop. Time to buy")
+			parent.game_data["inventory"]["credits"] += ( astronaut_quantity_pink_crystal * PINK_CRYSTAL_VALUE) + ( astronaut_quantity_blue_crystal * BLUE_CRYSTAL_VALUE) + ( astronaut_quantity_green_crystal * GREEN_CRYSTAL_VALUE)
 			astronaut_quantity_pink_crystal = 0
 			astronaut_quantity_blue_crystal = 0
 			astronaut_quantity_green_crystal = 0
+			parent.game_data["inventory"]["pink_crystals"] = 0
+			parent.game_data["inventory"]["green_crystals"] = 0
+			parent.game_data["inventory"]["blue_crystals"] = 0
 			fuel = max_fuel
 			updateStats()
 			fuelChanged.emit(fuel)	
