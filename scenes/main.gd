@@ -46,7 +46,7 @@ func _ready():
 	$HUD/RetryButton.hide()
 	$HUD/DeadLabel.hide()
 	print('_ready')
-	update_ui()	
+	update_ui()
 	$Astronaut.updateStats()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

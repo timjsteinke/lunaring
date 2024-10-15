@@ -42,7 +42,6 @@ func update_ui():
 func calc_thrust_cost():
 	return (game_data["upgrades"]["thrust_upgrade"]+1) * THRUST_COST_PER_LEVEL
 
-
 func calc_fuel_efficiency_cost():
 	return (game_data["upgrades"]["fuel_efficiency_upgrade"]+1) * EFFICIENCY_COST_PER_LEVEL
 
@@ -64,6 +63,7 @@ func on_click_buy_thruster():
 	game_data["upgrades"]["thrust_upgrade"] += 1
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
+	$Upgrade.play()
 
 func on_click_buy_fuel_efficiency():
 	var cost = calc_fuel_efficiency_cost()
@@ -74,6 +74,7 @@ func on_click_buy_fuel_efficiency():
 	game_data["upgrades"]["fuel_efficiency_upgrade"] += 1
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
+	$Upgrade.play()
 		
 func on_click_buy_fuel_capacity():
 	var cost = calc_fuel_cap_cost()
@@ -84,6 +85,7 @@ func on_click_buy_fuel_capacity():
 	game_data["upgrades"]["fuel_capacity_upgrade"] += 1
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
+	$Upgrade.play()
 
 func on_click_buy_shield():
 	var cost = calc_shield_cost()
@@ -94,8 +96,8 @@ func on_click_buy_shield():
 	game_data["upgrades"]["shield"] += 1
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
+	$Upgrade.play()
 
-# TODO: Finish this
 func on_click_buy_inventory():
 	var cost = calc_inventory_cost()
 	if (game_data["inventory"]["credits"] < cost):
@@ -105,3 +107,4 @@ func on_click_buy_inventory():
 	game_data["upgrades"]["max_inventory"] += 1
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
+	$Upgrade.play()
