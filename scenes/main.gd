@@ -9,18 +9,19 @@ const starting_lives = 3
 	},
 	"level": 1,
 	"inventory": { 
+		"credits": 0,
 		"pink_crystals": 0,
 		"blue_crystals": 0,
 		"green_crystals": 0
 	},
 	"upgrades": {
+		"max_inventory" : 1,
 		"thrust_upgrade": 0,
 		"fuel_efficiency_upgrade": 0,
 		"fuel_capacity_upgrade": 0,
 		"shield": 0
 	},
-	"settings": { 
-		"astronaut_max_inventory": 1,
+	"settings": { 		
 		"difficulty" : 1,
 		"starting_lives": starting_lives,
 		"gravity": 100
@@ -45,7 +46,7 @@ func _ready():
 	$HUD/RetryButton.hide()
 	$HUD/DeadLabel.hide()
 	print('_ready')
-	update_ui()	
+	update_ui()
 	$Astronaut.updateStats()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
