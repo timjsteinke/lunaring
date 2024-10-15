@@ -23,6 +23,7 @@ var vertical_speed_ui
 var astro_cam
 var player_stats_ui
 
+var start_Scene = true
 var alive
 var dead_reason
 var reasons = ["Try not flying into the ground so fast!", "Didn't you see the space debris?"]

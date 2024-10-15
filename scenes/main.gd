@@ -25,7 +25,8 @@ const starting_lives = 3
 	"settings": { 		
 		"difficulty" : 1,
 		"starting_lives": starting_lives,
-		"gravity": 100
+		"gravity": 100,
+		"start_Scene": true
 	}
 }
 
@@ -44,6 +45,11 @@ func update_ui():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if(game_data["settings"]["start_Scene"]):
+		game_data["settings"]["start_Scene"] = false
+	else:
+		print("hide start button")
+		$HUD/StartButton.hide()
 	$HUD/RetryButton.hide()
 	$HUD/DeadLabel.hide()	
 	update_ui()

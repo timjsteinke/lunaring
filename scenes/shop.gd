@@ -11,7 +11,7 @@ const FUEL_COST_PER_UNIT = 1
 
 func _on_back_button_pressed() -> void:
 	SceneSwitcher.switch_scene("main")
-
+	
 func _ready():
 	pass
 
