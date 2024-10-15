@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=30 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
@@ -63,6 +63,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ia3ar"]
+bg_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_51ee7")
@@ -144,6 +147,7 @@ limit_right = 1536
 limit_bottom = 512
 
 [node name="HUD" type="CanvasLayer" parent="."]
+layer = 0
 
 [node name="FuelUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
@@ -166,27 +170,6 @@ offset_bottom = 500.0
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "V SPEED: 0 MPH"
-
-[node name="StartButton" type="Button" parent="HUD"]
-custom_minimum_size = Vector2(80, 40)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -454.0
-offset_top = -596.0
-offset_right = 454.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 11
-text = "Welcome to LunaRing!
-
-An advanced alien civilization left 3 Rings on the surface of the Moon. 
-
-You have been tasked to harvest the energy crystals produced by the rings
-
-Collect and sell as many Energy Crystals as you can"
 
 [node name="RetryButtonOLD" type="Button" parent="HUD"]
 unique_name_in_owner = true
@@ -274,15 +257,6 @@ Thrust Power = 3[/color]
 [color=#01a7c0]Blue Crystals  0 [/color]
 [color=#00bf43]Green Crystals  0 [/color][/center]"
 
-[node name="Button" type="Button" parent="HUD"]
-offset_left = 222.0
-offset_top = 483.0
-offset_right = 303.0
-offset_bottom = 544.0
-scale = Vector2(0.84, 0.44)
-text = "Shop"
-script = ExtResource("11_vcths")
-
 [node name="LaunchButton" type="Button" parent="."]
 unique_name_in_owner = true
 offset_left = 54.0
@@ -308,6 +282,15 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
+[node name="ShopButton" type="Button" parent="."]
+offset_left = 121.0
+offset_top = 415.0
+offset_right = 160.0
+offset_bottom = 436.0
+theme_override_font_sizes/font_size = 5
+text = "SHOP"
+script = ExtResource("11_vcths")
+
 [node name="BoundaryArea" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoundaryArea"]
@@ -332,15 +315,45 @@ sprite_frames = SubResource("SpriteFrames_pwbo7")
 position = Vector2(1221, -269)
 sprite_frames = SubResource("SpriteFrames_wjm4i")
 
+[node name="StartHUD" type="CanvasLayer" parent="."]
+
+[node name="StartButton" type="Button" parent="StartHUD"]
+custom_minimum_size = Vector2(80, 40)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -454.0
+offset_top = -596.0
+offset_right = 454.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_ia3ar")
+text = "WELCOME TO LUNARING!
+
+AN ADVANCED ALIEN CIVILIZATION LEFT 3 RINGS ON THE SURFACE OF THE MOON. 
+
+YOU HAVE BEEN TASKED TO ACTIVATE ALL 3 RINGS HIDDEN AROUND THE PLANET.
+
+HARVEST THE ENERGY CRYSTALS PRODUCED BY THE RINGS.
+
+HARVEST AS MANY ENERGY CRYSTALS AS YOU CAN.
+
+SELL THEM AT THE SHOP TO BUY UPGRADES NEEDED TO REACH ALL 3 RINGS.
+
+CLICK TO START."
+
 [connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
 [connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
 [connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="body_entered" from="Ring1" to="Astronaut" method="_on_ring_1_body_entered"]
 [connection signal="body_entered" from="Ring2" to="Astronaut" method="_on_ring_2_body_entered"]
 [connection signal="body_entered" from="Ring3" to="Astronaut" method="_on_ring_3_body_entered"]
-[connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/RetryButton" to="HUD/RetryButton" method="_on_pressed"]
-[connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]
+[connection signal="pressed" from="ShopButton" to="." method="_on_button_pressed"]
 [connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]
 [connection signal="body_exited" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_exited"]
+[connection signal="pressed" from="StartHUD/StartButton" to="." method="_on_start_button_pressed"]

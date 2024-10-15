@@ -57,12 +57,12 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("Jetpack_and_Start") && $HUD/StartButton.visible:
+	if Input.is_action_pressed("Jetpack_and_Start") && $StartHUD/StartButton.visible:
 		_on_start_button_pressed()
 
 
 func _on_start_button_pressed():
-	$HUD/StartButton.hide()
+	$StartHUD/StartButton.hide()
 	$Astronaut.start($StartPosition.position)
 
 func _on_button_pressed() -> void:
