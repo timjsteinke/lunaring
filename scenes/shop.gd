@@ -59,6 +59,7 @@ func on_click_buy_thruster():
 	var cost = calc_thrust_cost()
 	if (game_data["inventory"]["credits"] < cost):
 		print("Can't afford")
+		$CantAfford.play()
 		return
 	game_data["upgrades"]["thrust_upgrade"] += 1
 	game_data["inventory"]["credits"] -= cost
@@ -69,6 +70,7 @@ func on_click_buy_fuel_efficiency():
 	var cost = calc_fuel_efficiency_cost()
 	if (game_data["inventory"]["credits"] < cost):
 		print("Can't afford")
+		$CantAfford.play()
 		return
 	print("Player bought more fuel efficiency")
 	game_data["upgrades"]["fuel_efficiency_upgrade"] += 1
@@ -80,7 +82,8 @@ func on_click_buy_fuel_capacity():
 	var cost = calc_fuel_cap_cost()
 	if (game_data["inventory"]["credits"] < cost):
 		print("Can't afford")
-		return	
+		$CantAfford.play()
+		return
 	print("Player bought more fuel capacity")
 	game_data["upgrades"]["fuel_capacity_upgrade"] += 1
 	game_data["inventory"]["credits"] -= cost
@@ -91,6 +94,7 @@ func on_click_buy_shield():
 	var cost = calc_shield_cost()
 	if (game_data["inventory"]["credits"] < cost):
 		print("Can't afford")
+		$CantAfford.play()
 		return
 	print("Player bought shields")
 	game_data["upgrades"]["shield"] += 1
@@ -102,6 +106,7 @@ func on_click_buy_inventory():
 	var cost = calc_inventory_cost()
 	if (game_data["inventory"]["credits"] < cost):
 		print("Can't afford")
+		$CantAfford.play()
 		return
 	print("Player bought more inventory space")
 	game_data["upgrades"]["max_inventory"] += 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ch815bo2cagj5"]
+[gd_scene load_steps=12 format=3 uid="uid://ch815bo2cagj5"]
 
 [ext_resource type="Script" path="res://scenes/shop.gd" id="1_8yecc"]
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_fojtg"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_fr4v7"]
 [ext_resource type="Texture2D" uid="uid://cwyiup11rb3nl" path="res://assets/astronaut-idle.png" id="4_ph41o"]
 [ext_resource type="AudioStream" uid="uid://drbj6ik5qcdjd" path="res://assets/sounds/Upgrade.wav" id="6_cv4d0"]
+[ext_resource type="AudioStream" uid="uid://dw1r0c40vir0m" path="res://assets/sounds/CantAfford.wav" id="6_f6onw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_go7x4"]
 size = Vector2(768, 47)
@@ -161,6 +162,9 @@ autowrap_mode = 0
 
 [node name="Upgrade" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_cv4d0")
+
+[node name="CantAfford" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_f6onw")
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ThrustButton" to="." method="on_click_buy_thruster"]
