@@ -5,8 +5,10 @@ class_name Astronaut
 const PINK_CRYSTAL_VALUE = 100
 const BLUE_CRYSTAL_VALUE = 300
 const GREEN_CRYSTAL_VALUE = 500
-const FULL_MESSAGE = "⚠️ You cannot hold more crystals. Try selling some back at the shop."
+
+const FULL_MESSAGE = "⚠️ You cannot hold more crystals. Sell at the shop or upgrade inventory."
 const LOW_FUEL_MESSAGE = "⚠️ Warning! Fuel low! Refuel at the shop!"
+const CRYSTAL_OBTAINED_MESSAGE = " crystal obtained! Sell at the shop!"
 
 var gravity : int = 100
 var SPEED = 1.0
@@ -251,7 +253,7 @@ func _on_pink_crystal_body_entered(body):
 			print ("Player has landed and picked up a Pink Crystal")
 			parent.game_data["inventory"]["pink_crystals"] += 1
 			ToastParty.show({
-				"text": "Pink crystal obtained!",     # Text (emojis can be used)
+				"text": "Pink " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
 				"bgcolor": Color(1, 1, 1, .7),     # Background Color
 				"color": Color(.25, .25, .25, 1),         # Text Color
 				"gravity": "top",                   # top or bottom
@@ -291,7 +293,7 @@ func _on_green_crystal_body_entered(body):
 			print ("Player has landed and picked up a Green Crystal")			
 			parent.game_data["inventory"]["green_crystals"] += 1
 			ToastParty.show({
-				"text": "Green crystal obtained!",     # Text (emojis can be used)
+				"text": "Green " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
 				"bgcolor": Color(1, 1, 1, .7),     # Background Color
 				"color": Color(.25, .25, .25, 1),         # Text Color
 				"gravity": "top",                   # top or bottom
@@ -324,7 +326,7 @@ func _on_blue_crystal_body_entered(body):
 			print ("Player has landed and picked up a Blue Crystal")			
 			parent.game_data["inventory"]["blue_crystals"] += 1
 			ToastParty.show({
-				"text": "Blue crystal obtained!",     # Text (emojis can be used)
+				"text": "Blue " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
 				"bgcolor": Color(1, 1, 1, .7),     # Background Color
 				"color": Color(.25, .25, .25, 1),         # Text Color
 				"gravity": "top",                   # top or bottom
