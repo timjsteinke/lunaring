@@ -21,6 +21,7 @@ default_font_size = 12
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_8yecc")
+metadata/_edit_vertical_guides_ = [505.0]
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_fojtg")
@@ -54,107 +55,112 @@ scale = Vector2(0.81412, 0.457109)
 text = "Back"
 
 [node name="ThrustButton" type="Button" parent="."]
-offset_left = 521.0
-offset_top = 110.0
-offset_right = 721.0
-offset_bottom = 164.0
-scale = Vector2(1.13412, 0.617109)
-text = "Buy: 300"
+offset_left = 505.0
+offset_top = 112.0
+offset_right = 655.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 10
+text = "BUY: 300"
 
 [node name="FuelEfficiencyButton" type="Button" parent="."]
-offset_left = 520.0
-offset_top = 165.0
-offset_right = 720.0
-offset_bottom = 219.0
-scale = Vector2(1.13412, 0.617109)
-text = "Buy: 300"
+offset_left = 505.0
+offset_top = 166.0
+offset_right = 655.0
+offset_bottom = 196.0
+theme_override_font_sizes/font_size = 10
+text = "BUY: 300"
 
 [node name="ShieldButton" type="Button" parent="."]
-offset_left = 521.0
-offset_top = 274.0
-offset_right = 721.0
-offset_bottom = 328.0
-scale = Vector2(1.13412, 0.617109)
-text = "Buy: 300"
+offset_left = 505.0
+offset_top = 279.0
+offset_right = 655.0
+offset_bottom = 309.0
+theme_override_font_sizes/font_size = 10
+text = "BUY: 300"
 
 [node name="FuelCapButton" type="Button" parent="."]
-offset_left = 521.0
-offset_top = 220.0
-offset_right = 721.0
-offset_bottom = 274.0
-scale = Vector2(1.13412, 0.617109)
-text = "Buy: 300"
+offset_left = 505.0
+offset_top = 223.0
+offset_right = 655.0
+offset_bottom = 253.0
+theme_override_font_sizes/font_size = 10
+text = "BUY: 300"
 
 [node name="InventoryButton" type="Button" parent="."]
-offset_left = 522.0
-offset_top = 322.0
-offset_right = 722.0
-offset_bottom = 376.0
-scale = Vector2(1.13412, 0.617109)
-text = "Buy: 1000"
+offset_left = 505.0
+offset_top = 326.0
+offset_right = 655.0
+offset_bottom = 356.0
+theme_override_font_sizes/font_size = 10
+text = "BUY: 1000"
 
 [node name="WelcomeLabel" type="RichTextLabel" parent="."]
 offset_left = 240.0
-offset_top = 4.0
+offset_top = 47.0
 offset_right = 519.0
-offset_bottom = 50.0
+offset_bottom = 93.0
 text = "Welcome to the Shop!"
 fit_content = true
 autowrap_mode = 0
 
 [node name="CreditsLabel" type="RichTextLabel" parent="."]
-offset_left = 483.0
-offset_top = 400.0
-offset_right = 615.0
-offset_bottom = 446.0
+offset_left = 511.0
+offset_top = 372.0
+offset_right = 643.0
+offset_bottom = 418.0
 text = "Credits: 0"
 fit_content = true
 autowrap_mode = 0
 
 [node name="ThrustLabel" type="RichTextLabel" parent="."]
-offset_left = 8.0
-offset_top = 96.0
-offset_right = 482.0
-offset_bottom = 142.0
+offset_left = 207.0
+offset_top = 111.0
+offset_right = 493.0
+offset_bottom = 143.0
 theme = SubResource("Theme_8u4yq")
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Thrust (Current Level: 1)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="FuelEfficiencyLabel" type="RichTextLabel" parent="."]
-offset_left = 6.0
-offset_top = 159.0
-offset_right = 583.0
-offset_bottom = 205.0
+offset_left = 141.0
+offset_top = 165.0
+offset_right = 491.0
+offset_bottom = 198.0
 theme = SubResource("Theme_rskcn")
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Fuel Efficiency (Current Level: 1)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="FuelCapLabel" type="RichTextLabel" parent="."]
-offset_left = 7.0
-offset_top = 212.0
-offset_right = 430.0
-offset_bottom = 252.0
+offset_left = 155.0
+offset_top = 221.0
+offset_right = 507.0
+offset_bottom = 256.0
 theme = SubResource("Theme_r1k8j")
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Fuel Capacity (Current Level: 1)	"
 fit_content = true
 autowrap_mode = 0
 
 [node name="ShieldLabel" type="RichTextLabel" parent="."]
-offset_left = 3.0
-offset_top = 257.0
-offset_right = 448.0
-offset_bottom = 303.0
+offset_left = 217.0
+offset_top = 278.0
+offset_right = 506.0
+offset_bottom = 306.0
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Shield (Current Level: 0)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="InventoryLabel" type="RichTextLabel" parent="."]
-offset_left = 4.0
-offset_top = 308.0
-offset_right = 501.0
-offset_bottom = 354.0
+offset_left = 182.0
+offset_top = 324.0
+offset_right = 495.0
+offset_bottom = 352.0
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Inventory (Current Level: 1)"
 fit_content = true
 autowrap_mode = 0
