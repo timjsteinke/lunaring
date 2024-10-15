@@ -6,7 +6,7 @@ const THRUST_COST_PER_LEVEL = 300
 const EFFICIENCY_COST_PER_LEVEL = 300
 const FUELCAP_COST_PER_LEVEL = 300
 const SHIELD_COST_PER_LEVEL = 300
-const INVENTORY_COST_PER_LEVEL = 1000
+const INVENTORY_COST_PER_LEVEL = 500
 
 func _on_back_button_pressed() -> void:
 	SceneSwitcher.switch_scene("main")
