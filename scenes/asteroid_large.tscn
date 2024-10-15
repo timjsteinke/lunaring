@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccqahtqj6xmhk"]
+
+[ext_resource type="Texture2D" uid="uid://c4afodk44mu2e" path="res://assets/asteroid_large.png" id="1_ak8lp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_77hsp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ak8lp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AsteroidLarge" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_77hsp")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-78, -122, -59, -122, -51, -97, -45, -57, -42, -31, -37, 3, -36, 26, -32, 35, -22, 35, -8, 29, 9, 21, 5, 37, 6, 45, 17, 46, 36, 47, 52, 47, 60, 131, 50, 128, 19, 128, -2, 134, -23, 128, -38, 119, -70, 117, -89, 108, -96, 92, -109, 77, -118, 79, -127, 70, -127, 49, -136, 35, -140, 14, -145, 4, -143, -16, -152, -28, -156, -51, -151, -78, -141, -94, -119, -106, -96, -112)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1, 0)
+polygon = PackedVector2Array(-16, -128, 1, -134, 18, -132, 55, -129, 68, -115, 89, -112, 103, -98, 121, -91, 141, -80, 146, -69, 153, -46, 157, -28, 154, -13, 157, 1, 149, 16, 147, 35, 136, 52, 131, 64, 124, 75, 114, 87, 106, 102, 92, 117, 76, 126, 61, 131, 53, 47, 68, 46, 76, 42, 75, 30, 73, 12, 70, 5, 63, -4, 44, -6, 27, -8, 21, -10, -8, -27, -13, -66, -14, -84, -19, -98, -17, -106)

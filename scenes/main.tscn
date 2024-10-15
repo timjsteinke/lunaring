@@ -1,20 +1,25 @@
-[gd_scene load_steps=22 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=29 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
 [ext_resource type="PackedScene" uid="uid://drxu5atyc48fh" path="res://scenes/astronaut.tscn" id="2_yjn4c"]
 [ext_resource type="PackedScene" uid="uid://tcmuy4s1hh3q" path="res://scenes/moon_base.tscn" id="3_53vnx"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
+[ext_resource type="PackedScene" uid="uid://ccqahtqj6xmhk" path="res://scenes/asteroid_large.tscn" id="4_5lf3d"]
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
 [ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
 [ext_resource type="Script" path="res://scenes/progress_bar.gd" id="6_3hpj6"]
 [ext_resource type="Script" path="res://scenes/retry_button.gd" id="9_3gwcm"]
+[ext_resource type="PackedScene" uid="uid://bknlvy54r0kp1" path="res://scenes/ring.tscn" id="9_c88im"]
 [ext_resource type="Texture2D" uid="uid://b86goofmcorqx" path="res://assets/blue_crystal.png" id="9_o8wju"]
 [ext_resource type="Texture2D" uid="uid://bssbg7i5j2rd3" path="res://assets/green_crystal.png" id="10_5hyum"]
 [ext_resource type="Script" path="res://scenes/button.gd" id="11_vcths"]
+[ext_resource type="PackedScene" uid="uid://dkwriq8tl5tod" path="res://scenes/asteroid.tscn" id="13_kbr4l"]
+[ext_resource type="Texture2D" uid="uid://buc70rp3sgj1m" path="res://assets/asteroid_large_shade.png" id="16_ow6p8"]
+[ext_resource type="Texture2D" uid="uid://c4fr72k8w2l7l" path="res://assets/asteroid_large_foreground.png" id="17_2kkwd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
-size = Vector2(768, 47)
+size = Vector2(1536, 47)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf80f"]
 size = Vector2(64, 3)
@@ -37,12 +42,41 @@ bg_color = Color(1, 0.0705882, 0.239216, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85sst"]
 size = Vector2(26, 2)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_pwbo7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_ow6p8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wjm4i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_2kkwd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Main" type="Node"]
 script = ExtResource("1_51ee7")
 
 [node name="Background" type="Sprite2D" parent="."]
+position = Vector2(386, -262)
 texture = ExtResource("1_8gkfy")
 offset = Vector2(384, 256)
+
+[node name="Asteroid" parent="." instance=ExtResource("13_kbr4l")]
+position = Vector2(424, -37)
+
+[node name="AsteroidLarge" parent="." instance=ExtResource("4_5lf3d")]
+position = Vector2(1221, -267)
 
 [node name="MoonBase" parent="." instance=ExtResource("3_53vnx")]
 position = Vector2(125, 455)
@@ -53,7 +87,7 @@ position = Vector2(60, 418)
 [node name="Floor" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(384, 488.5)
+position = Vector2(768, 488.5)
 shape = SubResource("RectangleShape2D_v6bwf")
 
 [node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
@@ -85,6 +119,18 @@ shape = SubResource("RectangleShape2D_1uoul")
 position = Vector2(348, 147)
 texture = ExtResource("10_5hyum")
 
+[node name="Ring1" parent="." instance=ExtResource("9_c88im")]
+unique_name_in_owner = true
+position = Vector2(424, -48)
+
+[node name="Ring2" parent="." instance=ExtResource("9_c88im")]
+unique_name_in_owner = true
+position = Vector2(424, -48)
+
+[node name="Ring3" parent="." instance=ExtResource("9_c88im")]
+unique_name_in_owner = true
+position = Vector2(1263, -225)
+
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
 unique_name_in_owner = true
 position = Vector2(72, 403)
@@ -93,9 +139,9 @@ position = Vector2(72, 403)
 unique_name_in_owner = true
 zoom = Vector2(3, 3)
 limit_left = 0
-limit_top = 0
-limit_right = 800
-limit_bottom = 600
+limit_top = -512
+limit_right = 1536
+limit_bottom = 512
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -261,7 +307,7 @@ end_cap_mode = 2
 [node name="BoundaryArea" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoundaryArea"]
-polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 512, 768, 512, 768, 0)
+polygon = PackedVector2Array(2, -521, 0, 512, -64, 512, -74, -624, 1665, -623, 1640, 503, 1538, 502, 1541, -517)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 unique_name_in_owner = true
@@ -274,9 +320,20 @@ position = Vector2(614, 888)
 position = Vector2(-541, -469)
 shape = SubResource("RectangleShape2D_85sst")
 
+[node name="AsteroidLargeShade" type="AnimatedSprite2D" parent="."]
+position = Vector2(1230, -304)
+sprite_frames = SubResource("SpriteFrames_pwbo7")
+
+[node name="AsteroidLargeForeground" type="AnimatedSprite2D" parent="."]
+position = Vector2(1221, -269)
+sprite_frames = SubResource("SpriteFrames_wjm4i")
+
 [connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
 [connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
 [connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
+[connection signal="body_entered" from="Ring1" to="Astronaut" method="_on_ring_1_body_entered"]
+[connection signal="body_entered" from="Ring2" to="Astronaut" method="_on_ring_2_body_entered"]
+[connection signal="body_entered" from="Ring3" to="Astronaut" method="_on_ring_3_body_entered"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="HUD/RetryButton" to="HUD/RetryButton" method="_on_pressed"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]

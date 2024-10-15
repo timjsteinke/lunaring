@@ -48,12 +48,17 @@ var dead_label
 var retry_button
 var launch_button
 var start_position
+
+var ring1
+var ring2
+var ring3
 	
 
 func start(pos):
 	position = pos
 	alive = true
 	fuel = max_fuel
+	$DeathParticles.emitting = false
 
 func _ready():	
 	print("astronaut ready")
@@ -82,6 +87,11 @@ func _ready():
 	retry_button = get_node("%RetryButton")
 	launch_button = get_node("%LaunchButton")
 	start_position = get_node("%StartPosition")
+	$DeathParticles.emitting = false
+	
+	ring1 = get_node("%Ring1")
+	ring2 = get_node("%Ring2")
+	ring3 = get_node("%Ring3")
 	
 func update_stats():
 	gravity = parent.game_data["settings"]["gravity"]	
@@ -113,7 +123,9 @@ func _physics_process(delta: float) -> void:
 	
 	#print ("velocity_y: " + str(velocity.y) + ", last_v_speed: " + str(last_vertical_speed))
 		
-		camera_zoom = (abs(position.y) / 452) * 3
+		var position_y_corrected = position.y + 512
+		camera_zoom = (position_y_corrected / 964) * 3
+		#print(str(position.y) + "," + str(position_y_corrected) + "," + str(camera_zoom))
 		if camera_zoom < 1:
 			camera_zoom = 1
 		elif camera_zoom > 3:
@@ -135,6 +147,7 @@ func _physics_process(delta: float) -> void:
 		if (is_on_floor()):
 			#print ("Is on Floor")
 			alive = false
+			$DeathParticles.emitting = true
 			died(0)
 			fuel = 0
 			fuelChanged.emit()
@@ -187,12 +200,16 @@ func _physics_process(delta: float) -> void:
 		var flip_h = $AnimatedSprite2D.flip_h
 		if (direction == 1 && flip_h == false):
 			$AnimatedSprite2D.flip_h = false
+			$GPUParticles2D.position.x = -6
 		elif (direction == 1 && flip_h == true):
 			$AnimatedSprite2D.flip_h = false
+			$GPUParticles2D.position.x = -6
 		elif (direction == -1 && flip_h == false):
 			$AnimatedSprite2D.flip_h = true
+			$GPUParticles2D.position.x = 6
 		elif (direction == -1 && flip_h == true):
 			$AnimatedSprite2D.flip_h = true
+			$GPUParticles2D.position.x = 6
 		
 	
 		if not is_on_floor():
@@ -306,3 +323,15 @@ func retry():
 	alive = true
 	dead_label.hide()
 	retry_button.hide()
+
+func _on_ring_1_body_entered(body: Node2D) -> void:
+	if (body.name == "Astronaut"):
+		ring1.activate()
+
+func _on_ring_2_body_entered(body: Node2D) -> void:
+	if (body.name == "Astronaut"):
+		ring2.activate()
+
+func _on_ring_3_body_entered(body: Node2D) -> void:
+	if (body.name == "Astronaut"):
+		ring3.activate()

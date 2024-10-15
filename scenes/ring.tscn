@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bknlvy54r0kp1"]
+
+[ext_resource type="Script" path="res://scenes/ring.gd" id="1_74872"]
+[ext_resource type="Texture2D" uid="uid://dnixtg6caq1w1" path="res://assets/ring.png" id="1_y88yx"]
+[ext_resource type="Texture2D" uid="uid://dfhcrc18f5tlp" path="res://assets/ring2.png" id="2_0mvvr"]
+[ext_resource type="Texture2D" uid="uid://b75am0txyc5qv" path="res://assets/ring3.png" id="3_si1uh"]
+[ext_resource type="Texture2D" uid="uid://cvle0s1a3yt7s" path="res://assets/ring4.png" id="5_hhcpx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dafks"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y88yx")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y88yx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0mvvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_si1uh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hhcpx")
+}],
+"loop": false,
+"name": &"player_activated",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvyqy"]
+radius = 12.0
+height = 64.0
+
+[node name="Ring" type="Area2D"]
+script = ExtResource("1_74872")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dafks")
+animation = &"player_activated"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jvyqy")

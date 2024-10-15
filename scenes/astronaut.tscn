@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://drxu5atyc48fh"]
+[gd_scene load_steps=18 format=3 uid="uid://drxu5atyc48fh"]
 
 [ext_resource type="Script" path="res://scenes/astronaut.gd" id="1_65tvb"]
 [ext_resource type="Texture2D" uid="uid://7425xc3nfclp" path="res://assets/astronaut-booster-1.png" id="1_r35v2"]
@@ -52,31 +52,50 @@ animations = [{
 radius = 7.0
 height = 28.0
 
+[sub_resource type="Gradient" id="Gradient_ni7kc"]
+offsets = PackedFloat32Array(0, 0.16185, 1)
+colors = PackedColorArray(0, 1, 1, 1, 1, 0.611765, 0, 1, 1, 0.423529, 0.00784314, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3h5uj"]
+gradient = SubResource("Gradient_ni7kc")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hicmm"]
 particle_flag_disable_z = true
+emission_shape_scale = Vector3(3, 0, 3)
 emission_shape = 1
 emission_sphere_radius = 1.0
 gravity = Vector3(0, 98, 0)
-color = Color(1, 0.127, 0.03, 1)
-hue_variation_min = -0.2
-hue_variation_max = 0.06
+color_ramp = SubResource("GradientTexture1D_3h5uj")
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vse8n"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = -1.60933e-05
+gravity = Vector3(0, 0, -1)
+color = Color(1, 0, 0, 1)
 
 [node name="Astronaut" type="CharacterBody2D"]
 script = ExtResource("1_65tvb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wwv17")
-animation = &"idle"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_6ldwy")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 5
+position = Vector2(-6, 3)
+amount = 50
 process_material = SubResource("ParticleProcessMaterial_hicmm")
-lifetime = 0.5
+lifetime = 0.75
 
 [node name="SoundJetpackLoop" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_p3fv6")
@@ -92,3 +111,9 @@ stream = ExtResource("10_jcfyc")
 
 [node name="SoundVelocityAltitudeAlarm" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_0a288")
+
+[node name="DeathParticles" type="GPUParticles2D" parent="."]
+position = Vector2(0, 8)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_vse8n")
+lifetime = 5.0
