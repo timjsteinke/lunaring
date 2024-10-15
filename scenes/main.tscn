@@ -185,7 +185,6 @@ theme_override_font_sizes/font_size = 10
 theme_override_styles/background = SubResource("StyleBoxFlat_hb0yg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
 step = 1.0
-value = 100.0
 script = ExtResource("6_3hpj6")
 astronaut = NodePath("../../../Astronaut")
 

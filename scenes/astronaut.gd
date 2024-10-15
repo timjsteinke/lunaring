@@ -11,13 +11,13 @@ var SPEED = 1.0
 var thrust_velocity = -3.0
 var fuel_cost = .25
 var max_fuel = 100
-@export var is_on_platform = true
 
-@export var fuel = max_fuel # Makes this variable readable to the ui 
+@export var is_on_platform = true
+@export var fuel = 0 # Makes this variable readable to the ui 
 
 signal fuelChanged(current_fuel)
 
-var fuel_ui
+#var fuel_ui
 var vertical_speed_ui
 var astro_cam
 var player_stats_ui
@@ -47,12 +47,15 @@ var launching
 func start(pos):
 	position = pos
 	alive = true
-	fuel = max_fuel
+	fuel = parent.game_data["player"]["fuel"]
+	fuelChanged.emit(fuel)
 
 func _ready():	
 	print("astronaut ready")
 	parent = get_parent()
-	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
+	fuel = parent.game_data["player"]["fuel"]	
+	fuelChanged.emit(fuel)
+	#fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
 	astro_cam = get_node("%AstroCam") # Initialize astrocam pointer
 	player_stats_ui = get_node("%PlayerStats") # Initialize vertical speed UI text node pointer
@@ -81,16 +84,12 @@ func update_stats():
 	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 10) + 100
 	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 1)
 	astronaut_max_inventory = (parent.game_data["upgrades"]["max_inventory"])
-	
-	print("astonaut stats updated:")
-	print("test: " + str(parent.game_data["upgrades"]["fuel_capacity_upgrade"]))
-	print("fuel_cost: ", str(fuel_cost))
-	print("max_fuel: ", str(max_fuel))
-	print("thrust velocity: ", str(thrust_velocity))
-	print("max inventory: ", str(astronaut_max_inventory))
+	fuel = parent.game_data["player"]["fuel"]
+	fuelChanged.emit(fuel)
 
 func useFuel():	
 	fuel -= fuel_cost
+	parent.game_data["player"]["fuel"] = fuel
 	fuelChanged.emit(fuel)
 	
 func _physics_process(delta: float) -> void:
@@ -289,6 +288,7 @@ func _on_platform_area_body_entered(body):
 			parent.game_data["inventory"]["pink_crystals"] = 0
 			parent.game_data["inventory"]["green_crystals"] = 0
 			parent.game_data["inventory"]["blue_crystals"] = 0
-			fuel = max_fuel
+			#fuel = max_fuel  # Let's charge for this instead, amirite
+			#fuelChanged.emit(fuel)	
 			updateStats()
-			fuelChanged.emit(fuel)	
+			

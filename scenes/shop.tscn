@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ch815bo2cagj5"]
+[gd_scene load_steps=15 format=3 uid="uid://ch815bo2cagj5"]
 
 [ext_resource type="Script" path="res://scenes/shop.gd" id="1_8yecc"]
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_fojtg"]
@@ -18,6 +18,15 @@ default_font_size = 12
 default_font_size = 12
 
 [sub_resource type="Theme" id="Theme_r1k8j"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_ilb6h"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_irdgu"]
+default_font_size = 12
+
+[sub_resource type="Theme" id="Theme_pjorq"]
 default_font_size = 12
 
 [node name="Shop" type="Node2D"]
@@ -143,19 +152,21 @@ fit_content = true
 autowrap_mode = 0
 
 [node name="ShieldLabel" type="RichTextLabel" parent="."]
-offset_left = 3.0
-offset_top = 257.0
-offset_right = 448.0
-offset_bottom = 303.0
+offset_left = 6.0
+offset_top = 270.0
+offset_right = 451.0
+offset_bottom = 316.0
+theme = SubResource("Theme_ilb6h")
 text = "Upgrade Shield (Current Level: 0)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="InventoryLabel" type="RichTextLabel" parent="."]
 offset_left = 4.0
-offset_top = 308.0
+offset_top = 317.0
 offset_right = 501.0
-offset_bottom = 354.0
+offset_bottom = 363.0
+theme = SubResource("Theme_irdgu")
 text = "Upgrade Inventory (Current Level: 1)"
 fit_content = true
 autowrap_mode = 0
@@ -166,9 +177,18 @@ stream = ExtResource("6_cv4d0")
 [node name="CantAfford" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_f6onw")
 
+[node name="RefuelButton" type="Button" parent="."]
+offset_left = 255.0
+offset_top = 401.0
+offset_right = 263.0
+offset_bottom = 409.0
+theme = SubResource("Theme_pjorq")
+text = "Refuel: 0"
+
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ThrustButton" to="." method="on_click_buy_thruster"]
 [connection signal="pressed" from="FuelEfficiencyButton" to="." method="on_click_buy_fuel_efficiency"]
 [connection signal="pressed" from="ShieldButton" to="." method="on_click_buy_shield"]
 [connection signal="pressed" from="FuelCapButton" to="." method="on_click_buy_fuel_capacity"]
 [connection signal="pressed" from="InventoryButton" to="." method="on_click_buy_inventory"]
+[connection signal="pressed" from="RefuelButton" to="." method="_on_refuel_button_pressed"]
