@@ -2,26 +2,31 @@ extends CharacterBody2D
 
 class_name Astronaut
 
-const PINK_CRYSTAL_VALUE = 500
-const GREEN_CRYSTAL_VALUE = 300
-const BLUE_CRYSTAL_VALUE = 100
+const PINK_CRYSTAL_VALUE = 100
+const BLUE_CRYSTAL_VALUE = 300
+const GREEN_CRYSTAL_VALUE = 500
+
+const FULL_MESSAGE = "⚠️ You cannot hold more crystals. Sell at the shop or upgrade inventory."
+const LOW_FUEL_MESSAGE = "⚠️ Warning! Fuel low! Refuel at the shop!"
+const CRYSTAL_OBTAINED_MESSAGE = " crystal obtained! Sell at the shop!"
 
 var gravity : int = 100
 var SPEED = 1.0
 var thrust_velocity = -3.0
 var fuel_cost = .25
 var max_fuel = 100
-@export var is_on_platform = true
 
-@export var fuel = max_fuel # Makes this variable readable to the ui 
+@export var is_on_platform = true
+@export var fuel = 0 # Makes this variable readable to the ui 
 
 signal fuelChanged(current_fuel)
 
-var fuel_ui
+#var fuel_ui
 var vertical_speed_ui
 var astro_cam
 var player_stats_ui
 
+var start_Scene = true
 var alive
 var dead_reason
 var reasons = ["Try not flying into the ground so fast!", "Didn't you see the space debris?"]
@@ -43,6 +48,7 @@ var sound_jetpack_off_play = false
 var sound_landing_play = false
 
 var launching
+var fuel_warning = false
 
 var dead_label
 var retry_button
@@ -57,13 +63,16 @@ var ring3
 func start(pos):
 	position = pos
 	alive = true
-	fuel = max_fuel
+	fuel = parent.game_data["player"]["fuel"]
+	fuelChanged.emit(fuel)
 	$DeathParticles.emitting = false
 
 func _ready():	
 	print("astronaut ready")
 	parent = get_parent()
-	fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
+	fuel = parent.game_data["player"]["fuel"]	
+	fuelChanged.emit(fuel)
+	#fuel_ui = get_node("%FuelUI") # Initialize fuel UI text node pointer
 	vertical_speed_ui = get_node("%VerticalSpeedUI") # Initialize vertical speed UI text node pointer
 	astro_cam = get_node("%AstroCam") # Initialize astrocam pointer
 	player_stats_ui = get_node("%PlayerStats") # Initialize vertical speed UI text node pointer
@@ -102,17 +111,25 @@ func update_stats():
 	max_fuel = (parent.game_data["upgrades"]["fuel_capacity_upgrade"] * 10) + 100
 	thrust_velocity = -3.0 - (parent.game_data["upgrades"]["thrust_upgrade"] * 1)
 	astronaut_max_inventory = (parent.game_data["upgrades"]["max_inventory"])
-	
-	print("astonaut stats updated:")
-	print("test: " + str(parent.game_data["upgrades"]["fuel_capacity_upgrade"]))
-	print("fuel_cost: ", str(fuel_cost))
-	print("max_fuel: ", str(max_fuel))
-	print("thrust velocity: ", str(thrust_velocity))
-	print("max inventory: ", str(astronaut_max_inventory))
+	fuel = parent.game_data["player"]["fuel"]
+	fuelChanged.emit(fuel)
 
 func useFuel():	
 	fuel -= fuel_cost
+	parent.game_data["player"]["fuel"] = fuel
 	fuelChanged.emit(fuel)
+	if (fuel < max_fuel * .25):
+		if (fuel_warning == false):
+			ToastParty.show({
+				"text": LOW_FUEL_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
+			fuel_warning = true
 	
 func _physics_process(delta: float) -> void:
 	
@@ -233,11 +250,22 @@ func _physics_process(delta: float) -> void:
 
 func died(reason):
 	#This function handles the player dieing
-	#pass
-	#launch_button.disabled = true
-	dead_label.text = "You died. " + reasons[reason]
-	dead_label.show()
-	retry_button.show()
+	ToastParty.show({
+		"text": reasons[dead_reason],     # Text (emojis can be used)
+		"bgcolor": Color(1, 1, 1, .7),     # Background Color
+		"color": Color(.25, .25, .25, 1),         # Text Color
+		"gravity": "top",                   # top or bottom
+		"direction": "right",               # left or center or right
+		"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+		"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+	})
+	#$HUD/DeadLabel.text = "You died. " + reasons[dead_reason]
+	#$DeadLabel.Show()
+	#$HUD/RetryButton.Show()
+
+	#dead_label.text = "You died. " + reasons[reason]
+	#dead_label.show()
+	#retry_button.show()
 	
 func updateStats():	 
 	#This function handles updating the HUD with Player stats
@@ -252,16 +280,36 @@ func updateStats():
 # Triggers when astronaut lands on pink crystal. Tries to harvest pink crystal, but checks conditions
 func _on_pink_crystal_body_entered(body):
 	#This function handles the player entering the pink crystal
-	if is_on_floor() && alive:
+	if alive && body == get_node("%Astronaut"):
 		if quantity_pink_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
-			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Pink Crystal(s)")
+			print ("Player has landed and picked up a Pink Crystal")
 			parent.game_data["inventory"]["pink_crystals"] += 1
-			astronaut_quantity_pink_crystal = astronaut_max_inventory
+			ToastParty.show({
+				"text": "Pink " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
+			astronaut_quantity_pink_crystal += 1
+			quantity_pink_crystal_left -= 1
+			print("There are " + str(quantity_pink_crystal_left) + " left.")
 			updateStats()
 		elif quantity_pink_crystal_left <= 0:
 			print ("There are no Pink Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
+			ToastParty.show({
+				"text": FULL_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
 
 # useful other commands may need
 	# is_action_just_pressed (handles only first occurence of press of key)
@@ -270,31 +318,71 @@ func _on_pink_crystal_body_entered(body):
 
 # Triggers when astronaut lands on green crystal. Tries to harvest green crystal, but checks conditions
 func _on_green_crystal_body_entered(body):
-	if is_on_floor() && alive:
+	#if is_on_floor() && alive:
+
+	if alive && body == get_node("%Astronaut"):
 		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
-			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Green Crystal(s)")
+			print ("Player has landed and picked up a Green Crystal")			
 			parent.game_data["inventory"]["green_crystals"] += 1
-			astronaut_quantity_green_crystal = astronaut_max_inventory
+			ToastParty.show({
+				"text": "Green " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
+			astronaut_quantity_green_crystal += 1
+			quantity_green_crystal_left -= 1
+			print("There are " + str(quantity_green_crystal_left) + " left.")
 			updateStats()
 		elif quantity_green_crystal_left <= 0:
 			print ("There are no Green Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
-		
+			ToastParty.show({
+				"text": FULL_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
 
 # Triggers when astronaut lands on blue crystal. Tries to harvest blue crystal, but checks conditions
 func _on_blue_crystal_body_entered(body):
-	if is_on_floor() && alive:
+	if alive && body == get_node("%Astronaut"):
 		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
-			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Blue Crystal(s)")
+			print ("Player has landed and picked up a Blue Crystal")			
 			parent.game_data["inventory"]["blue_crystals"] += 1
-			astronaut_quantity_blue_crystal = astronaut_max_inventory
+			ToastParty.show({
+				"text": "Blue " + CRYSTAL_OBTAINED_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
+			astronaut_quantity_blue_crystal += 1
+			quantity_blue_crystal_left -= 1
+			print("There are " + str(quantity_blue_crystal_left) + " left.")
 			updateStats()
 		elif quantity_blue_crystal_left <= 0:
 			print ("There are no Blue Crystals left")
 		elif (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) >= astronaut_max_inventory:
 			print ("You have no space left to hold additional crystals. Try Selling some back at the shop.")
-		
+			ToastParty.show({
+				"text": FULL_MESSAGE,     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
 
 func _on_platform_area_body_exited(body):
 	is_on_platform = false
@@ -305,14 +393,25 @@ func _on_platform_area_body_entered(body):
 		is_on_platform = true
 		if (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
 			print("Sold crystals at the Shop. Time to buy")
-			parent.game_data["inventory"]["credits"] += ( astronaut_quantity_pink_crystal * PINK_CRYSTAL_VALUE) + ( astronaut_quantity_blue_crystal * BLUE_CRYSTAL_VALUE) + ( astronaut_quantity_green_crystal * GREEN_CRYSTAL_VALUE)
+			var sell_value = ( astronaut_quantity_pink_crystal * PINK_CRYSTAL_VALUE) + ( astronaut_quantity_blue_crystal * BLUE_CRYSTAL_VALUE) + ( astronaut_quantity_green_crystal * GREEN_CRYSTAL_VALUE)
+			ToastParty.show({
+				"text": "💰 " +  str(sell_value) + " credits earned from selling crystals!",     # Text (emojis can be used)
+				"bgcolor": Color(1, 1, 1, .7),     # Background Color
+				"color": Color(.25, .25, .25, 1),         # Text Color
+				"gravity": "top",                   # top or bottom
+				"direction": "right",               # left or center or right
+				"text_size": 18,                    # [optional] Text (font) size // experimental (warning!)
+				"use_font": true                    # [optional] Use custom ToastParty font // experimental (warning!)
+			})
+			parent.game_data["inventory"]["credits"] += sell_value
 			astronaut_quantity_pink_crystal = 0
 			astronaut_quantity_blue_crystal = 0
 			astronaut_quantity_green_crystal = 0
 			parent.game_data["inventory"]["pink_crystals"] = 0
 			parent.game_data["inventory"]["green_crystals"] = 0
 			parent.game_data["inventory"]["blue_crystals"] = 0
-			fuel = max_fuel
+			#fuel = max_fuel  # Let's charge for this instead, amirite
+			#fuelChanged.emit(fuel)	
 			updateStats()
 			fuelChanged.emit(fuel)
 			
