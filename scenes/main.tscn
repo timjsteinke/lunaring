@@ -121,6 +121,7 @@ bbcode_enabled = true
 text = "V SPEED: 0 MPH"
 
 [node name="StartButton" type="Button" parent="HUD"]
+visible = false
 custom_minimum_size = Vector2(80, 40)
 anchors_preset = 7
 anchor_left = 0.5

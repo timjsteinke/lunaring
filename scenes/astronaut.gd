@@ -223,7 +223,7 @@ func updateStats():
 # Triggers when astronaut lands on pink crystal. Tries to harvest pink crystal, but checks conditions
 func _on_pink_crystal_body_entered(body):
 	#This function handles the player entering the pink crystal
-	if alive:
+	if alive && body == get_node("%Astronaut"):
 		if quantity_pink_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up a Pink Crystal")
 			parent.game_data["inventory"]["pink_crystals"] += 1
@@ -244,7 +244,8 @@ func _on_pink_crystal_body_entered(body):
 # Triggers when astronaut lands on green crystal. Tries to harvest green crystal, but checks conditions
 func _on_green_crystal_body_entered(body):
 	#if is_on_floor() && alive:
-	if alive:
+
+	if alive && body == get_node("%Astronaut"):
 		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up a Green Crystal")			
 			parent.game_data["inventory"]["green_crystals"] += 1
@@ -260,7 +261,7 @@ func _on_green_crystal_body_entered(body):
 
 # Triggers when astronaut lands on blue crystal. Tries to harvest blue crystal, but checks conditions
 func _on_blue_crystal_body_entered(body):
-	if alive:
+	if alive && body == get_node("%Astronaut"):
 		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up a Blue Crystal")			
 			parent.game_data["inventory"]["blue_crystals"] += 1
