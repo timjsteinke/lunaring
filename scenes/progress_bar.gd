@@ -4,8 +4,8 @@ extends ProgressBar
 
 func update(fuel):	
 	await get_tree().process_frame
-	value = fuel	
+	value = fuel
 
 func _ready():
 	astronaut.fuelChanged.connect(update)
-	update(astronaut.max_fuel)
+	update(astronaut.fuel)
