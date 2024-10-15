@@ -227,7 +227,7 @@ func _on_pink_crystal_body_entered(body):
 		if quantity_pink_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Pink Crystal(s)")
 			parent.game_data["inventory"]["pink_crystals"] += 1
-			astronaut_quantity_pink_crystal = astronaut_max_inventory
+			astronaut_quantity_pink_crystal += 1
 			updateStats()
 		elif quantity_pink_crystal_left <= 0:
 			print ("There are no Pink Crystals left")
@@ -245,7 +245,7 @@ func _on_green_crystal_body_entered(body):
 		if quantity_green_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Green Crystal(s)")
 			parent.game_data["inventory"]["green_crystals"] += 1
-			astronaut_quantity_green_crystal = astronaut_max_inventory
+			astronaut_quantity_green_crystal += 1
 			updateStats()
 		elif quantity_green_crystal_left <= 0:
 			print ("There are no Green Crystals left")
@@ -259,7 +259,7 @@ func _on_blue_crystal_body_entered(body):
 		if quantity_blue_crystal_left > 0 && astronaut_max_inventory > (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal):
 			print ("Player has landed and picked up " + str(astronaut_max_inventory) + " Blue Crystal(s)")
 			parent.game_data["inventory"]["blue_crystals"] += 1
-			astronaut_quantity_blue_crystal = astronaut_max_inventory
+			astronaut_quantity_blue_crystal += 1
 			updateStats()
 		elif quantity_blue_crystal_left <= 0:
 			print ("There are no Blue Crystals left")
