@@ -40,6 +40,12 @@ var sound_landing_play = false
 
 var launching
 
+var dead_label
+var retry_button
+var launch_button
+var start_position
+	
+
 func start(pos):
 	position = pos
 	alive = true
@@ -67,6 +73,11 @@ func _ready():
 	quantity_blue_crystal_left = 5
 	quantity_green_crystal_left = 5
 	update_stats()
+	
+	dead_label = get_node("%DeadLabel")
+	retry_button = get_node("%RetryButton")
+	launch_button = get_node("%LaunchButton")
+	start_position = get_node("%StartPosition")
 	
 func update_stats():
 	gravity = parent.game_data["settings"]["gravity"]
@@ -117,7 +128,7 @@ func _physics_process(delta: float) -> void:
 		
 		#vertical_speed_ui.pop()
 		if (is_on_floor()):
-			print ("Is on Floor")
+			#print ("Is on Floor")
 			alive = false
 			died(0)
 			fuel = 0
@@ -200,10 +211,11 @@ func _physics_process(delta: float) -> void:
 
 func died(reason):
 	#This function handles the player dieing
-	pass
-	#$HUD/DeadLabel.text = "You died. " + reasons[dead_reason]
-	#$DeadLabel.Show()
-	#$HUD/RetryButton.Show()
+	#pass
+	#launch_button.disabled = true
+	dead_label.text = "You died. " + reasons[reason]
+	dead_label.show()
+	retry_button.show()
 	
 func updateStats():	 
 	#This function handles updating the HUD with Player stats
@@ -276,4 +288,12 @@ func _on_platform_area_body_entered(body):
 			astronaut_quantity_green_crystal = 0
 			fuel = max_fuel
 			updateStats()
-			fuelChanged.emit(fuel)	
+			fuelChanged.emit(fuel)
+			
+func retry():
+	#print("RETRY")
+	start(start_position.position)
+	$AnimatedSprite2D.play("idle")
+	alive = true
+	dead_label.hide()
+	retry_button.hide()

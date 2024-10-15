@@ -4,6 +4,7 @@ var launch_line
 var show_launch_line
 var astronaut
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
@@ -39,21 +40,21 @@ func _process(delta: float) -> void:
 		
 		launch_line.add_point(current_mouse_local)
 
-		
-	if Input.is_action_just_released("ClickMouse"):
-		show_launch_line = false
-		
-		var launch_x = 3* launch_line.get_point_position(1).x + 12
-		var launch_y = 3* launch_line.get_point_position(1).y - 4
-		
-		astronaut.position.y = astronaut.position.y - 5
-		astronaut.launching = true
-		astronaut.velocity.y = launch_y * - 1
-		astronaut.velocity.x = launch_x * - 1
-		
-		launch_line.remove_point(1)
-		launch_line.remove_point(0)
+		if Input.is_action_just_released("ClickMouse"):
+			show_launch_line = false
+			
+			var launch_x = 3* launch_line.get_point_position(1).x + 12
+			var launch_y = 3* launch_line.get_point_position(1).y - 4
+			
+			astronaut.position.y = astronaut.position.y - 5
+			astronaut.launching = true
+			astronaut.velocity.y = launch_y * - 1
+			astronaut.velocity.x = launch_x * - 1
+			
+			launch_line.remove_point(1)
+			launch_line.remove_point(0)
 
 func _on_pressed() -> void:
 	if Input.is_action_just_pressed("ClickMouse"):
 		show_launch_line = true
+		#print("CLICKED")

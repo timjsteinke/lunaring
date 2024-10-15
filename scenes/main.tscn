@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=22 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
 [ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
 [ext_resource type="Script" path="res://scenes/progress_bar.gd" id="6_3hpj6"]
+[ext_resource type="Script" path="res://scenes/retry_button.gd" id="9_3gwcm"]
 [ext_resource type="Texture2D" uid="uid://b86goofmcorqx" path="res://assets/blue_crystal.png" id="9_o8wju"]
 [ext_resource type="Texture2D" uid="uid://bssbg7i5j2rd3" path="res://assets/green_crystal.png" id="10_5hyum"]
 [ext_resource type="Script" path="res://scenes/button.gd" id="11_vcths"]
@@ -136,7 +137,9 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Lift off"
 
-[node name="RetryButton" type="Button" parent="HUD"]
+[node name="RetryButtonOLD" type="Button" parent="HUD"]
+unique_name_in_owner = true
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -148,9 +151,27 @@ offset_right = 54.0
 offset_bottom = -158.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Retry?"
+action_mode = 0
+keep_pressed_outside = true
+text = "RETRY?"
+
+[node name="RetryButton" type="Button" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 304.0
+offset_top = 304.0
+offset_right = 453.0
+offset_bottom = 352.0
+pivot_offset = Vector2(18, -20)
+theme_override_font_sizes/font_size = 14
+action_mode = 0
+keep_pressed_outside = true
+text = "RETRY?"
+text_overrun_behavior = 1
+clip_text = true
+script = ExtResource("9_3gwcm")
 
 [node name="DeadLabel" type="RichTextLabel" parent="HUD"]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -158,8 +179,8 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
 offset_top = -75.0
-offset_right = 200.0
-offset_bottom = 75.0
+offset_right = 203.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/default_color = Color(0.901961, 1, 0, 1)
@@ -213,6 +234,7 @@ text = "Shop"
 script = ExtResource("11_vcths")
 
 [node name="LaunchButton" type="Button" parent="."]
+unique_name_in_owner = true
 offset_left = 54.0
 offset_top = 421.0
 offset_right = 92.0
@@ -242,6 +264,7 @@ end_cap_mode = 2
 polygon = PackedVector2Array(0, 0, 0, 512, -64, 512, -64, -64, 832, -64, 832, 512, 768, 512, 768, 0)
 
 [node name="StartPosition" type="Marker2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(72, 403)
 
 [node name="PlatformArea" type="Area2D" parent="."]
@@ -255,6 +278,7 @@ shape = SubResource("RectangleShape2D_85sst")
 [connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
 [connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="pressed" from="HUD/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="HUD/RetryButton" to="HUD/RetryButton" method="_on_pressed"]
 [connection signal="pressed" from="HUD/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]
 [connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]

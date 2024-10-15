@@ -38,6 +38,7 @@ version_control/autoload_on_startup=true
 
 [gui]
 
+theme/custom="res://lunaring_theme.tres"
 theme/custom_font="res://assets/Pixeled.ttf"
 theme/default_font_antialiasing=0
 
