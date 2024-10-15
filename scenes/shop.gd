@@ -7,6 +7,7 @@ const EFFICIENCY_COST_PER_LEVEL = 300
 const FUELCAP_COST_PER_LEVEL = 300
 const SHIELD_COST_PER_LEVEL = 300
 const INVENTORY_COST_PER_LEVEL = 500
+const FUEL_COST_PER_UNIT = 1
 
 func _on_back_button_pressed() -> void:
 	SceneSwitcher.switch_scene("main")
@@ -38,6 +39,13 @@ func update_ui():
 	$FuelCapButton.text = "Cost: " + str(calc_fuel_cap_cost())
 	$ShieldButton.text = "Cost: " + str(calc_shield_cost())
 	$InventoryButton.text = "Cost: " + str(calc_inventory_cost())
+	$RefuelButton.text = "Refuel: " + str(calc_refuel_cost())
+
+func calc_max_fuel(): 
+	return 100 + (10 * game_data["upgrades"]["fuel_capacity_upgrade"])
+
+func calc_refuel_cost(): 
+	return floor((calc_max_fuel() - game_data["player"]["fuel"]) * FUEL_COST_PER_UNIT)
 	
 func calc_thrust_cost():
 	return (game_data["upgrades"]["thrust_upgrade"]+1) * THRUST_COST_PER_LEVEL
@@ -110,6 +118,18 @@ func on_click_buy_inventory():
 		return
 	print("Player bought more inventory space")
 	game_data["upgrades"]["max_inventory"] += 1
+	game_data["inventory"]["credits"] -= cost
+	update_ui()
+	$Upgrade.play()
+
+func _on_refuel_button_pressed():
+	var cost = calc_refuel_cost()
+	if (game_data["inventory"]["credits"] < cost):
+		print("Can't afford")
+		$CantAfford.play()
+		return
+	print("Player refueled for " + str(cost) + " credits.")
+	game_data["player"]["fuel"] = calc_max_fuel()
 	game_data["inventory"]["credits"] -= cost
 	update_ui()
 	$Upgrade.play()
