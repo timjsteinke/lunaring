@@ -11,7 +11,6 @@ func _ready()-> void:
 
 func switch_scene(res_path):
 	call_deferred("_deferred_switch_scene", res_path)
-		
 	
 func _deferred_switch_scene(res_path):
 	var game_data = current_scene.game_data

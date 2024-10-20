@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://yk6tr8s6di5d"]
+[gd_scene load_steps=31 format=3 uid="uid://yk6tr8s6di5d"]
 
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_8gkfy"]
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_51ee7"]
@@ -6,24 +6,30 @@
 [ext_resource type="PackedScene" uid="uid://tcmuy4s1hh3q" path="res://scenes/moon_base.tscn" id="3_53vnx"]
 [ext_resource type="PackedScene" uid="uid://bpx53yyvjrhty" path="res://scenes/platform.tscn" id="3_de22q"]
 [ext_resource type="PackedScene" uid="uid://ccqahtqj6xmhk" path="res://scenes/asteroid_large.tscn" id="4_5lf3d"]
+[ext_resource type="PackedScene" uid="uid://nx7glfkk4h3u" path="res://scenes/pink_crystal.tscn" id="4_uvyd0"]
 [ext_resource type="Script" path="res://scenes/launch_button.gd" id="5_2t4ex"]
-[ext_resource type="PackedScene" uid="uid://dg4yknnkkfm7c" path="res://scenes/crashed_ship.tscn" id="5_ltrqw"]
 [ext_resource type="Script" path="res://scenes/progress_bar.gd" id="6_3hpj6"]
 [ext_resource type="Script" path="res://scenes/retry_button.gd" id="9_3gwcm"]
 [ext_resource type="PackedScene" uid="uid://bknlvy54r0kp1" path="res://scenes/ring.tscn" id="9_c88im"]
+[ext_resource type="Texture2D" uid="uid://b86goofmcorqx" path="res://assets/blue_crystal.png" id="9_o8wju"]
+[ext_resource type="Texture2D" uid="uid://bssbg7i5j2rd3" path="res://assets/green_crystal.png" id="10_5hyum"]
 [ext_resource type="Script" path="res://scenes/button.gd" id="11_vcths"]
 [ext_resource type="PackedScene" uid="uid://dkwriq8tl5tod" path="res://scenes/asteroid.tscn" id="13_kbr4l"]
+[ext_resource type="Script" path="res://scenes/health_bar.gd" id="14_utwqe"]
 [ext_resource type="Texture2D" uid="uid://buc70rp3sgj1m" path="res://assets/asteroid_large_shade.png" id="16_ow6p8"]
 [ext_resource type="Texture2D" uid="uid://c4fr72k8w2l7l" path="res://assets/asteroid_large_foreground.png" id="17_2kkwd"]
-[ext_resource type="PackedScene" uid="uid://byvy7yg3ot16l" path="res://scenes/rocks.tscn" id="19_p27yc"]
-[ext_resource type="AudioStream" uid="uid://wridi8go04cf" path="res://assets/sounds/MainThemeLong_GameJame2024_Loopable_V1.wav" id="20_ww5qk"]
-[ext_resource type="PackedScene" uid="uid://msuwsdak5cnc" path="res://scenes/crystal.tscn" id="21_jyjbj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7orp"]
-size = Vector2(54, 48)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v6bwf"]
 size = Vector2(1536, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lf80f"]
+size = Vector2(64, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ii3mg"]
+size = Vector2(62, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1uoul"]
+size = Vector2(62, 3.5)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l5pb3"]
 
@@ -33,9 +39,6 @@ size = Vector2(1536, 47)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dr6ie"]
 bg_color = Color(1, 0.0705882, 0.239216, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wamum"]
-size = Vector2(20, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85sst"]
 size = Vector2(26, 2)
@@ -69,7 +72,6 @@ bg_color = Color(0, 0, 0, 1)
 script = ExtResource("1_51ee7")
 
 [node name="Background" type="Sprite2D" parent="."]
-unique_name_in_owner = true
 position = Vector2(386, -262)
 texture = ExtResource("1_8gkfy")
 offset = Vector2(384, 256)
@@ -77,26 +79,11 @@ offset = Vector2(384, 256)
 [node name="Asteroid" parent="." instance=ExtResource("13_kbr4l")]
 position = Vector2(424, -37)
 
-[node name="Asteroid2" parent="." instance=ExtResource("13_kbr4l")]
-position = Vector2(840, 83)
-
 [node name="AsteroidLarge" parent="." instance=ExtResource("4_5lf3d")]
 position = Vector2(1221, -267)
 
-[node name="CrashedShip" parent="." instance=ExtResource("5_ltrqw")]
-position = Vector2(1309, 353)
-
-[node name="Rocks" parent="." instance=ExtResource("19_p27yc")]
-position = Vector2(749, 402)
-
 [node name="MoonBase" parent="." instance=ExtResource("3_53vnx")]
 position = Vector2(125, 455)
-
-[node name="ShopArea" type="Area2D" parent="MoonBase"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MoonBase/ShopArea"]
-position = Vector2(15, 0)
-shape = SubResource("RectangleShape2D_h7orp")
 
 [node name="Platform" parent="." instance=ExtResource("3_de22q")]
 position = Vector2(60, 418)
@@ -107,9 +94,38 @@ position = Vector2(60, 418)
 position = Vector2(768, 488.5)
 shape = SubResource("RectangleShape2D_v6bwf")
 
+[node name="PinkCrystal" parent="." instance=ExtResource("4_uvyd0")]
+position = Vector2(307, 444)
+
+[node name="PCCollisionShape2D" type="CollisionShape2D" parent="PinkCrystal"]
+position = Vector2(0, 21.5)
+shape = SubResource("RectangleShape2D_lf80f")
+
+[node name="BlueCrystal" type="Area2D" parent="."]
+position = Vector2(453, 444)
+
+[node name="BCCollisionShape2D" type="CollisionShape2D" parent="BlueCrystal"]
+position = Vector2(0, 21.5)
+shape = SubResource("RectangleShape2D_ii3mg")
+
+[node name="BlueCrystal2" type="Sprite2D" parent="BlueCrystal"]
+position = Vector2(0, 2)
+texture = ExtResource("9_o8wju")
+
+[node name="GreenCrystal" type="Area2D" parent="."]
+position = Vector2(300, 300)
+
+[node name="GCCollisionShape2D" type="CollisionShape2D" parent="GreenCrystal"]
+position = Vector2(348, 165.25)
+shape = SubResource("RectangleShape2D_1uoul")
+
+[node name="GreenCrystal2" type="Sprite2D" parent="GreenCrystal"]
+position = Vector2(348, 147)
+texture = ExtResource("10_5hyum")
+
 [node name="Ring1" parent="." instance=ExtResource("9_c88im")]
 unique_name_in_owner = true
-position = Vector2(1387, 461)
+position = Vector2(424, -48)
 
 [node name="Ring2" parent="." instance=ExtResource("9_c88im")]
 unique_name_in_owner = true
@@ -118,36 +134,6 @@ position = Vector2(424, -48)
 [node name="Ring3" parent="." instance=ExtResource("9_c88im")]
 unique_name_in_owner = true
 position = Vector2(1263, -225)
-
-[node name="Crystals" type="Node" parent="."]
-
-[node name="Crystal1" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(454, 446)
-
-[node name="Crystal2" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(1035, 445)
-crystal_color = "Blue"
-
-[node name="Crystal3" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(1522, 446)
-crystal_color = "Pink"
-
-[node name="Crystal4" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(822, 326)
-
-[node name="Crystal5" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(841, 55)
-crystal_color = "Blue"
-
-[node name="Crystal6" parent="Crystals" instance=ExtResource("21_jyjbj")]
-unique_name_in_owner = true
-position = Vector2(1196, -250)
-crystal_color = "Pink"
 
 [node name="Astronaut" parent="." instance=ExtResource("2_yjn4c")]
 unique_name_in_owner = true
@@ -167,9 +153,8 @@ layer = 0
 [node name="FuelUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 layout_direction = 1
-offset_left = 4.0
 offset_top = 487.0
-offset_right = 147.0
+offset_right = 143.0
 offset_bottom = 510.0
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
@@ -179,9 +164,9 @@ scroll_active = false
 [node name="VerticalSpeedUI" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 offset_left = 4.0
-offset_top = 469.0
+offset_top = 446.0
 offset_right = 337.0
-offset_bottom = 500.0
+offset_bottom = 477.0
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "V SPEED: 0 MPH"
@@ -236,25 +221,10 @@ theme_override_colors/default_color = Color(0.901961, 1, 0, 1)
 text = "You died. Try not running into the surface so hard!"
 fit_content = true
 
-[node name="WinLabel" type="RichTextLabel" parent="HUD"]
-unique_name_in_owner = true
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -75.0
-offset_right = 203.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/default_color = Color(0.901961, 1, 0, 1)
-text = "YOU WIN!
-TRY AGAIN AND BEAT YOUR TIME."
-fit_content = true
+[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
+layer = 2
 
+<<<<<<< HEAD
 [node name="Timer" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 anchors_preset = 8
@@ -272,14 +242,17 @@ theme_override_colors/default_color = Color(0.901961, 1, 0, 1)
 text = "MISSION TIMER: "
 fit_content = true
 
-[node name="ProgressBar" type="ProgressBar" parent="HUD" node_paths=PackedStringArray("astronaut")]
+[node name="ProgressBar" type="ProgressBar" parent="HUD"]
+=======
+[node name="ProgressBar" type="ProgressBar" parent="HUD/CanvasLayer" node_paths=PackedStringArray("astronaut")]
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 material = SubResource("CanvasItemMaterial_l5pb3")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 52.0
+offset_left = 66.0
 offset_top = -17.0
-offset_right = 352.0
+offset_right = 366.0
 offset_bottom = 11.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
@@ -289,10 +262,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_hb0yg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
 step = 1.0
 script = ExtResource("6_3hpj6")
-astronaut = NodePath("../../Astronaut")
+<<<<<<< HEAD
 
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 layer = 2
+=======
+astronaut = NodePath("../../../Astronaut")
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 
 [node name="PlayerStats" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
@@ -308,9 +284,34 @@ Thrust Power = 3[/color]
 [color=#01a7c0]Blue Crystals  0 [/color]
 [color=#00bf43]Green Crystals  0 [/color][/center]"
 
+[node name="Health" type="RichTextLabel" parent="HUD"]
+offset_top = 467.0
+offset_right = 333.0
+offset_bottom = 498.0
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "HEALTH:"
+
+[node name="HealthBar" type="ProgressBar" parent="HUD"]
+material = SubResource("CanvasItemMaterial_l5pb3")
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = -35.0
+offset_right = 366.0
+offset_bottom = -7.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = SubResource("Theme_q2rcd")
+theme_override_font_sizes/font_size = 10
+theme_override_styles/background = SubResource("StyleBoxFlat_hb0yg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
+step = 1.0
+script = ExtResource("14_utwqe")
+
 [node name="LaunchButton" type="Button" parent="."]
 unique_name_in_owner = true
-visible = false
 offset_left = 54.0
 offset_top = 421.0
 offset_right = 92.0
@@ -335,8 +336,6 @@ begin_cap_mode = 2
 end_cap_mode = 2
 
 [node name="ShopButton" type="Button" parent="."]
-unique_name_in_owner = true
-visible = false
 offset_left = 121.0
 offset_top = 415.0
 offset_right = 160.0
@@ -344,14 +343,6 @@ offset_bottom = 436.0
 theme_override_font_sizes/font_size = 5
 text = "SHOP"
 script = ExtResource("11_vcths")
-
-[node name="LaunchArea" type="Area2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(54, 421)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaunchArea"]
-position = Vector2(19, -8)
-shape = SubResource("RectangleShape2D_wamum")
 
 [node name="BoundaryArea" type="StaticBody2D" parent="."]
 
@@ -378,7 +369,6 @@ position = Vector2(1221, -269)
 sprite_frames = SubResource("SpriteFrames_wjm4i")
 
 [node name="StartHUD" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="StartButton" type="Button" parent="StartHUD"]
 custom_minimum_size = Vector2(80, 40)
@@ -400,36 +390,23 @@ AN ADVANCED ALIEN CIVILIZATION LEFT 3 RINGS ON THE SURFACE OF THE MOON.
 
 YOU HAVE BEEN TASKED TO ACTIVATE ALL 3 RINGS HIDDEN AROUND THE PLANET.
 
-HARVEST THE ENERGY CRYSTALS PRODUCED BY THE RINGS
+HARVEST THE ENERGY CRYSTALS PRODUCED BY THE RINGS.
+
+HARVEST AS MANY ENERGY CRYSTALS AS YOU CAN.
 
 SELL THEM AT THE SHOP TO BUY UPGRADES NEEDED TO REACH ALL 3 RINGS.
 
-DON'T CRASH OR RUN OUT OF FUEL.  FIGURE OUT THE BEST STRATEGY.
-
-CONTROLS: WASD OR ARROWS + SPACEBAR.  CLICK BUTTONS WITH MOUSE TO ACTIVATE.
-
 CLICK TO START."
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("20_ww5qk")
-autoplay = true
-
-[connection signal="body_entered" from="MoonBase/ShopArea" to="Astronaut" method="_on_shop_area_body_entered"]
-[connection signal="body_exited" from="MoonBase/ShopArea" to="Astronaut" method="_on_shop_area_body_exited"]
+[connection signal="body_entered" from="PinkCrystal" to="Astronaut" method="_on_pink_crystal_body_entered"]
+[connection signal="body_entered" from="BlueCrystal" to="Astronaut" method="_on_blue_crystal_body_entered"]
+[connection signal="body_entered" from="GreenCrystal" to="Astronaut" method="_on_green_crystal_body_entered"]
 [connection signal="body_entered" from="Ring1" to="Astronaut" method="_on_ring_1_body_entered"]
 [connection signal="body_entered" from="Ring2" to="Astronaut" method="_on_ring_2_body_entered"]
 [connection signal="body_entered" from="Ring3" to="Astronaut" method="_on_ring_3_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal1" to="Astronaut" method="_on_crystal_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal2" to="Astronaut" method="_on_crystal_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal3" to="Astronaut" method="_on_crystal_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal4" to="Astronaut" method="_on_crystal_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal5" to="Astronaut" method="_on_crystal_body_entered"]
-[connection signal="body_entered" from="Crystals/Crystal6" to="Astronaut" method="_on_crystal_body_entered"]
 [connection signal="pressed" from="HUD/RetryButton" to="HUD/RetryButton" method="_on_pressed"]
 [connection signal="pressed" from="LaunchButton" to="LaunchButton" method="_on_pressed"]
 [connection signal="pressed" from="ShopButton" to="." method="_on_button_pressed"]
-[connection signal="body_entered" from="LaunchArea" to="Astronaut" method="_on_launch_area_body_entered"]
-[connection signal="body_exited" from="LaunchArea" to="Astronaut" method="_on_launch_area_body_exited"]
 [connection signal="body_entered" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_entered"]
 [connection signal="body_exited" from="PlatformArea" to="Astronaut" method="_on_platform_area_body_exited"]
 [connection signal="pressed" from="StartHUD/StartButton" to="." method="_on_start_button_pressed"]

@@ -43,8 +43,8 @@ func _process(delta: float) -> void:
 		if Input.is_action_just_released("ClickMouse"):
 			show_launch_line = false
 			
-			var launch_x = 2* launch_line.get_point_position(1).x + 12
-			var launch_y = 2* launch_line.get_point_position(1).y - 4
+			var launch_x = 3* launch_line.get_point_position(1).x + 12
+			var launch_y = 3* launch_line.get_point_position(1).y - 4
 			
 			astronaut.position.y = astronaut.position.y - 5
 			astronaut.launching = true

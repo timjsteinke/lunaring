@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://drxu5atyc48fh"]
+[gd_scene load_steps=18 format=3 uid="uid://drxu5atyc48fh"]
 
 [ext_resource type="Script" path="res://scenes/astronaut.gd" id="1_65tvb"]
 [ext_resource type="Texture2D" uid="uid://7425xc3nfclp" path="res://assets/astronaut-booster-1.png" id="1_r35v2"]
@@ -6,26 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://b8rmb4a1wtis8" path="res://assets/astronaut-booster-3.png" id="3_uutk5"]
 [ext_resource type="Texture2D" uid="uid://c80vys54t0xc1" path="res://assets/astronaut-death.png" id="5_hiku6"]
 [ext_resource type="Texture2D" uid="uid://cwyiup11rb3nl" path="res://assets/astronaut-idle.png" id="5_y8cpy"]
-[ext_resource type="Texture2D" uid="uid://c80de7j0j1ycp" path="res://assets/astronaut-mining-1.png" id="7_5576r"]
 [ext_resource type="AudioStream" uid="uid://igg1aqoou8bt" path="res://assets/sounds/JetPackSustained_FullSustained_Variant1.mp3" id="7_p3fv6"]
 [ext_resource type="AudioStream" uid="uid://v4cxusb3505a" path="res://assets/sounds/JetPackOff_Variant1.wav" id="8_10d77"]
-[ext_resource type="Texture2D" uid="uid://gnqtv3aar7jg" path="res://assets/astronaut-mining-2.png" id="8_83cru"]
-[ext_resource type="Texture2D" uid="uid://dysit8dwulymf" path="res://assets/astronaut-mining-3.png" id="9_bkx3h"]
 [ext_resource type="AudioStream" uid="uid://c67dbklwotfh8" path="res://assets/sounds/JetPackIgnition_Variant1.wav" id="9_riaax"]
-[ext_resource type="Texture2D" uid="uid://cd6nyglglhw56" path="res://assets/astronaut-mining-4.png" id="10_6t8j6"]
 [ext_resource type="AudioStream" uid="uid://ev28038q38a1" path="res://assets/sounds/LandingImpact_Variant1.wav" id="10_jcfyc"]
 [ext_resource type="AudioStream" uid="uid://loyqtlkewt0b" path="res://assets/sounds/VelocityAltitudeAlarm_Variant1.wav" id="11_0a288"]
-[ext_resource type="Texture2D" uid="uid://b0pkfndb0l38m" path="res://assets/astronaut-mining-5.png" id="11_rbwqa"]
-[ext_resource type="Texture2D" uid="uid://dj44esx6o8nnc" path="res://assets/astronaut-mining-6.png" id="12_3oawy"]
-[ext_resource type="AudioStream" uid="uid://dxbpvc0rm5vqk" path="res://assets/sounds/DeathImpact_GameJam2024_SFX_V1.wav" id="12_6af58"]
-[ext_resource type="Texture2D" uid="uid://cdncx5e3fn6q0" path="res://assets/astronaut-mining-7.png" id="13_3jip5"]
-[ext_resource type="AudioStream" uid="uid://bxsvpssw07dgb" path="res://assets/sounds/CrystalAcquired_Var3_GameJam2024_SFX_V1.wav" id="13_asv8u"]
-[ext_resource type="Texture2D" uid="uid://b38pxgpvltffe" path="res://assets/astronaut-mining-8.png" id="14_fllbj"]
-[ext_resource type="AudioStream" uid="uid://cdx6idipdmwgp" path="res://assets/sounds/CrystalAmbience_GameJam2024_SFX_V2.wav" id="14_llhf1"]
-[ext_resource type="Texture2D" uid="uid://bdqugnfprms8b" path="res://assets/astronaut-mining-9.png" id="15_6ci3c"]
-[ext_resource type="Texture2D" uid="uid://c1lwjigyxsnt2" path="res://assets/astronaut-mining-10.png" id="16_1x4lc"]
-[ext_resource type="Texture2D" uid="uid://ckvw5xtjmt23x" path="res://assets/astronaut-mining-11.png" id="17_slpiv"]
-[ext_resource type="Texture2D" uid="uid://d0om7rdba5m8u" path="res://assets/astronaut-mining-12.png" id="18_5iu0w"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wwv17"]
 animations = [{
@@ -61,98 +46,6 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_5576r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_83cru")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_bkx3h")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_6t8j6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_rbwqa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_3oawy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_3jip5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_fllbj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_6ci3c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_1x4lc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_slpiv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_5iu0w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_slpiv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_1x4lc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_6ci3c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_1x4lc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_slpiv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_5iu0w")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_slpiv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_1x4lc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_6ci3c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_fllbj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_3jip5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_3oawy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_rbwqa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_6t8j6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_bkx3h")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_83cru")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_5576r")
-}],
-"loop": true,
-"name": &"mining",
-"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ldwy"]
@@ -192,8 +85,7 @@ script = ExtResource("1_65tvb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_wwv17")
-animation = &"mining"
-frame_progress = 0.102576
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -225,12 +117,3 @@ position = Vector2(0, 8)
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_vse8n")
 lifetime = 5.0
-
-[node name="SoundDeath" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_6af58")
-
-[node name="SoundCrystalAcquired" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("13_asv8u")
-
-[node name="SoundRing" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("14_llhf1")

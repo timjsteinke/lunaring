@@ -1,22 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bknlvy54r0kp1"]
+[gd_scene load_steps=8 format=3 uid="uid://bknlvy54r0kp1"]
 
 [ext_resource type="Script" path="res://scenes/ring.gd" id="1_74872"]
 [ext_resource type="Texture2D" uid="uid://dnixtg6caq1w1" path="res://assets/ring.png" id="1_y88yx"]
 [ext_resource type="Texture2D" uid="uid://dfhcrc18f5tlp" path="res://assets/ring2.png" id="2_0mvvr"]
-[ext_resource type="Texture2D" uid="uid://cg3q4cubwcjvi" path="res://assets/ring_deactivated.png" id="2_ov18e"]
 [ext_resource type="Texture2D" uid="uid://b75am0txyc5qv" path="res://assets/ring3.png" id="3_si1uh"]
 [ext_resource type="Texture2D" uid="uid://cvle0s1a3yt7s" path="res://assets/ring4.png" id="5_hhcpx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dafks"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_ov18e")
-}],
-"loop": true,
-"name": &"deactivated",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_y88yx")
@@ -52,7 +43,7 @@ script = ExtResource("1_74872")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_dafks")
-animation = &"idle"
+animation = &"player_activated"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
