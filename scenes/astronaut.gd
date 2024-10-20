@@ -142,6 +142,7 @@ func useFuel():
 func _physics_process(delta: float) -> void:
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	if (fuel<max_fuel):
 		fuel += fuel_regen
@@ -150,6 +151,8 @@ func _physics_process(delta: float) -> void:
 	fuelChanged.emit(fuel)
 	healthChanged.emit(health)
 	
+=======
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 =======
 >>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 	if (alive):
@@ -411,6 +414,7 @@ func _on_platform_area_body_exited(body):
 func _on_platform_area_body_entered(body):
 	# When landing on the platform need to sell crystals and open shop
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	if (body.name == "Astronaut"):
 		shop_button.show()
@@ -442,6 +446,8 @@ func _on_platform_area_body_entered(body):
 				fuelChanged.emit(fuel)
 				healthChanged.emit(health)
 =======
+=======
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 	if alive:
 		is_on_platform = true
 		if (astronaut_quantity_pink_crystal + astronaut_quantity_blue_crystal + astronaut_quantity_green_crystal) > 0:
@@ -467,6 +473,9 @@ func _on_platform_area_body_entered(body):
 			#fuelChanged.emit(fuel)	
 			updateStats()
 			fuelChanged.emit(fuel)
+<<<<<<< HEAD
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
+=======
 >>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 			
 func retry():
@@ -476,6 +485,7 @@ func retry():
 	alive = true
 	dead_label.hide()
 	retry_button.hide()
+<<<<<<< HEAD
 <<<<<<< HEAD
 	velocity.x = 0
 	velocity.y = 0
@@ -496,6 +506,8 @@ func retry():
 	
 	updateStats()
 	parent.reset_player()
+=======
+>>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 =======
 >>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 
