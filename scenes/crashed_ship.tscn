@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg4yknnkkfm7c"]
+
+[ext_resource type="Texture2D" uid="uid://etc7udxafvtg" path="res://assets/crashed_ship.png" id="1_enicp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cuwgq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_enicp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CrashedShip" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_cuwgq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-195, 120, -195, 40, -165, 44, -140, 48, -82, 48, -49, 19, 6, -47, 12, -40, 19, -65, 39, -89, 72, -120, 68, -102, 78, -100, 78, -92, 61, -68, 90, -79, 80, -43, 65, -19, 53, -13, 49, 2, 1, 59, 11, 60, 9, 66, 20, 65, -4, 80, 29, 87, 29, 92, 19, 91, 26, 101, 35, 102, 41, 106, 27, 108, 18, 112, -149, 111)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(99, 29, 103, 37, 111, 41, 114, 49, 127, 54, 140, 54, 144, 47, 148, 50, 156, 61, 150, 65, 152, 77, 160, 75, 166, 69, 164, 62, 170, 66, 180, 69, 177, 75, 190, 89, 198, 106, 182, 112, 116, 111, 114, 81, 100, 76, 88, 69, 81, 60, 90, 46, 101, 41, 96, 34)

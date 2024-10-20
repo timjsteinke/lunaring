@@ -1,0 +1,76 @@
+[gd_scene load_steps=10 format=3 uid="uid://msuwsdak5cnc"]
+
+[ext_resource type="Texture2D" uid="uid://bssbg7i5j2rd3" path="res://assets/green_crystal.png" id="1_eqgg1"]
+[ext_resource type="Script" path="res://scenes/crystal.gd" id="1_exb11"]
+[ext_resource type="Texture2D" uid="uid://b86goofmcorqx" path="res://assets/blue_crystal.png" id="2_oaeii"]
+[ext_resource type="Texture2D" uid="uid://ked62scmygib" path="res://assets/blue_crystal_mined.png" id="3_ei4g2"]
+[ext_resource type="Texture2D" uid="uid://bxcva2chj8b6k" path="res://assets/pink_crystal.png" id="4_mqv8o"]
+[ext_resource type="Texture2D" uid="uid://cke2q7kdhxtnm" path="res://assets/green_crystal_mined.png" id="5_ar4u6"]
+[ext_resource type="Texture2D" uid="uid://dy7a30d5c0qab" path="res://assets/pink_crystal_mined.png" id="7_p65yp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_80bls"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oaeii")
+}],
+"loop": true,
+"name": &"Blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ei4g2")
+}],
+"loop": true,
+"name": &"Blue Mined",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_eqgg1")
+}],
+"loop": true,
+"name": &"Green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ar4u6")
+}],
+"loop": true,
+"name": &"Green Mined",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mqv8o")
+}],
+"loop": true,
+"name": &"Pink",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_p65yp")
+}],
+"loop": true,
+"name": &"Pink Mined",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x0qnk"]
+size = Vector2(20, 8)
+
+[node name="Crystal" type="Area2D"]
+script = ExtResource("1_exb11")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_80bls")
+animation = &"Pink Mined"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+shape = SubResource("RectangleShape2D_x0qnk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

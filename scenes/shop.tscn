@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ch815bo2cagj5"]
+[gd_scene load_steps=16 format=3 uid="uid://ch815bo2cagj5"]
 
 [ext_resource type="Script" path="res://scenes/shop.gd" id="1_8yecc"]
 [ext_resource type="Texture2D" uid="uid://bfdjvrs7xncb4" path="res://assets/moon-bg.png" id="1_fojtg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cwyiup11rb3nl" path="res://assets/astronaut-idle.png" id="4_ph41o"]
 [ext_resource type="AudioStream" uid="uid://drbj6ik5qcdjd" path="res://assets/sounds/Upgrade.wav" id="6_cv4d0"]
 [ext_resource type="AudioStream" uid="uid://dw1r0c40vir0m" path="res://assets/sounds/CantAfford.wav" id="6_f6onw"]
+[ext_resource type="AudioStream" uid="uid://lgml7upyjsan" path="res://assets/sounds/MusicCue2_GameJame2024_Loopable_V1.wav" id="8_fcg60"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_go7x4"]
 size = Vector2(768, 47)
@@ -57,12 +58,12 @@ position = Vector2(112, 457)
 texture = ExtResource("4_ph41o")
 
 [node name="BackButton" type="Button" parent="."]
-offset_left = 211.0
-offset_top = 480.0
-offset_right = 283.0
-offset_bottom = 534.0
-scale = Vector2(0.81412, 0.457109)
-text = "Back"
+offset_left = 245.0
+offset_top = 339.0
+offset_right = 460.0
+offset_bottom = 393.0
+theme_override_font_sizes/font_size = 13
+text = "BACK TO PLAYING"
 
 [node name="ThrustButton" type="Button" parent="."]
 offset_left = 505.0
@@ -73,6 +74,7 @@ theme_override_font_sizes/font_size = 10
 text = "BUY: 300"
 
 [node name="FuelEfficiencyButton" type="Button" parent="."]
+visible = false
 offset_left = 505.0
 offset_top = 166.0
 offset_right = 655.0
@@ -81,6 +83,7 @@ theme_override_font_sizes/font_size = 10
 text = "BUY: 300"
 
 [node name="ShieldButton" type="Button" parent="."]
+visible = false
 offset_left = 505.0
 offset_top = 279.0
 offset_right = 655.0
@@ -88,19 +91,19 @@ offset_bottom = 309.0
 theme_override_font_sizes/font_size = 10
 text = "BUY: 300"
 
-[node name="FuelCapButton" type="Button" parent="."]
+[node name="FuelRegenButton" type="Button" parent="."]
 offset_left = 505.0
-offset_top = 223.0
+offset_top = 167.0
 offset_right = 655.0
-offset_bottom = 253.0
+offset_bottom = 197.0
 theme_override_font_sizes/font_size = 10
-text = "BUY: 300"
+text = "BUY: 150"
 
 [node name="InventoryButton" type="Button" parent="."]
 offset_left = 505.0
-offset_top = 326.0
+offset_top = 222.0
 offset_right = 655.0
-offset_bottom = 356.0
+offset_bottom = 252.0
 theme_override_font_sizes/font_size = 10
 text = "BUY: 1000"
 
@@ -109,31 +112,32 @@ offset_left = 240.0
 offset_top = 47.0
 offset_right = 519.0
 offset_bottom = 93.0
-text = "Welcome to the Shop!"
+text = "WELCOME TO THE SHOP"
 fit_content = true
 autowrap_mode = 0
 
 [node name="CreditsLabel" type="RichTextLabel" parent="."]
-offset_left = 511.0
-offset_top = 372.0
-offset_right = 643.0
-offset_bottom = 418.0
-text = "Credits: 0"
+offset_left = 512.0
+offset_top = 339.0
+offset_right = 647.0
+offset_bottom = 385.0
+text = "CREDITS: 0"
 fit_content = true
 autowrap_mode = 0
 
 [node name="ThrustLabel" type="RichTextLabel" parent="."]
-offset_left = 207.0
-offset_top = 111.0
-offset_right = 493.0
-offset_bottom = 143.0
+offset_left = 186.0
+offset_top = 112.0
+offset_right = 486.0
+offset_bottom = 144.0
 theme = SubResource("Theme_8u4yq")
 theme_override_font_sizes/normal_font_size = 10
-text = "Upgrade Thrust (Current Level: 1)"
+text = "UPGRADE THRUST  (CURRENT LEVEL: 1)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="FuelEfficiencyLabel" type="RichTextLabel" parent="."]
+visible = false
 offset_left = 141.0
 offset_top = 165.0
 offset_right = 491.0
@@ -144,34 +148,37 @@ text = "Upgrade Fuel Efficiency (Current Level: 1)"
 fit_content = true
 autowrap_mode = 0
 
-[node name="FuelCapLabel" type="RichTextLabel" parent="."]
+[node name="FuelRegenLabel" type="RichTextLabel" parent="."]
 offset_left = 155.0
-offset_top = 221.0
+offset_top = 165.0
 offset_right = 507.0
-offset_bottom = 256.0
+offset_bottom = 200.0
 theme = SubResource("Theme_r1k8j")
 theme_override_font_sizes/normal_font_size = 10
-text = "Upgrade Fuel Capacity (Current Level: 1)	"
+text = "UPGRADE FUEL REGEN  (CURRENT LEVEL: 1)	"
 fit_content = true
 autowrap_mode = 0
 
 [node name="ShieldLabel" type="RichTextLabel" parent="."]
-offset_left = 6.0
-offset_top = 270.0
-offset_right = 451.0
-offset_bottom = 316.0
+visible = false
+offset_left = 210.0
+offset_top = 279.0
+offset_right = 495.0
+offset_bottom = 309.0
 theme = SubResource("Theme_ilb6h")
+theme_override_font_sizes/normal_font_size = 10
 text = "Upgrade Shield (Current Level: 0)"
 fit_content = true
 autowrap_mode = 0
 
 [node name="InventoryLabel" type="RichTextLabel" parent="."]
-offset_left = 4.0
-offset_top = 317.0
-offset_right = 501.0
-offset_bottom = 363.0
+offset_left = 104.0
+offset_top = 223.0
+offset_right = 484.0
+offset_bottom = 251.0
 theme = SubResource("Theme_irdgu")
-text = "Upgrade Inventory (Current Level: 1)"
+theme_override_font_sizes/normal_font_size = 10
+text = "UPGRADE INVENTORY SPACE  (CURRENT LEVEL: 1)"
 fit_content = true
 autowrap_mode = 0
 
@@ -182,17 +189,22 @@ stream = ExtResource("6_cv4d0")
 stream = ExtResource("6_f6onw")
 
 [node name="RefuelButton" type="Button" parent="."]
-offset_left = 255.0
-offset_top = 401.0
-offset_right = 263.0
-offset_bottom = 409.0
+offset_left = 505.0
+offset_top = 275.0
+offset_right = 655.0
+offset_bottom = 306.0
 theme = SubResource("Theme_pjorq")
-text = "Refuel: 0"
+theme_override_font_sizes/font_size = 10
+text = "REFUEL: 0"
+
+[node name="SoundShopMusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_fcg60")
+autoplay = true
 
 [connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ThrustButton" to="." method="on_click_buy_thruster"]
 [connection signal="pressed" from="FuelEfficiencyButton" to="." method="on_click_buy_fuel_efficiency"]
 [connection signal="pressed" from="ShieldButton" to="." method="on_click_buy_shield"]
-[connection signal="pressed" from="FuelCapButton" to="." method="on_click_buy_fuel_capacity"]
+[connection signal="pressed" from="FuelRegenButton" to="." method="on_click_buy_fuel_regen"]
 [connection signal="pressed" from="InventoryButton" to="." method="on_click_buy_inventory"]
 [connection signal="pressed" from="RefuelButton" to="." method="_on_refuel_button_pressed"]
