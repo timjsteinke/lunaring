@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://byvy7yg3ot16l"]
+
+[ext_resource type="Texture2D" uid="uid://cgpu5ens8cqew" path="res://assets/rocks.png" id="1_47auh"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5pbwh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_47auh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Rocks" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5pbwh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-134, 18, -120, 10, -111, 11, -103, 6, -88, 10, -77, 12, -55, 7, -40, 5, -44, -6, -44, -21, -33, -35, -27, -36, -19, -46, -6, -50, -1, -50, 7, -62, 12, -65, 29, -63, 39, -67, 56, -62, 66, -61, 76, -60, 84, -60, 90, -56, 102, -38, 105, -27, 112, -24, 116, -17, 127, -9, 133, -1, 135, 16, 131, 25, 124, 37, 119, 53, 109, 59, 100, 65, -120, 62, -128, 53, -133, 42, -134, 33, -136, 25)
