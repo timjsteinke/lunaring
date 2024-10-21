@@ -225,7 +225,6 @@ fit_content = true
 layer = 2
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 [node name="Timer" type="RichTextLabel" parent="HUD"]
 unique_name_in_owner = true
 anchors_preset = 8
@@ -247,9 +246,6 @@ fit_content = true
 =======
 [node name="ProgressBar" type="ProgressBar" parent="HUD/CanvasLayer" node_paths=PackedStringArray("astronaut")]
 >>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
-=======
-[node name="ProgressBar" type="ProgressBar" parent="HUD/CanvasLayer" node_paths=PackedStringArray("astronaut")]
->>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 material = SubResource("CanvasItemMaterial_l5pb3")
 anchors_preset = 2
 anchor_top = 1.0
@@ -267,13 +263,9 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_dr6ie")
 step = 1.0
 script = ExtResource("6_3hpj6")
 <<<<<<< HEAD
-<<<<<<< HEAD
 
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 layer = 2
-=======
-astronaut = NodePath("../../../Astronaut")
->>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
 =======
 astronaut = NodePath("../../../Astronaut")
 >>>>>>> parent of ada6603 (Multiple changes including new scenery items, changed pickups code for easier scene changes)
